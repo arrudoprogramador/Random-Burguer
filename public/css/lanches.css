@@ -1,0 +1,130 @@
+
+
+:root{
+    --main-button: #f9f9f9;
+    --main-color: #824832;
+    --cor-secundari:#FBAA1B;
+    --black: #13131a;
+    --bg: #010103;
+    --border: 0.1rem solid rgba(255,255,255,0.3);
+    --cor-principal:#fff;
+    --cor-primaria: #22C0D4; /* Azul */
+
+    font-size: 10px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: 0.2s linear;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    text-decoration: none;
+}
+
+
+
+
+a{
+    text-decoration: none;
+    outline: none;
+}
+
+h1.text{
+    color: #f9f9f9;
+    font-size:40px;
+    font-weight: bold;
+}
+
+.textos{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 70vh;
+}
+
+
+.home-container{
+    width: 100%;
+    height: 100%;
+    max-height: 500px;
+    
+}
+
+/* Menu */
+.menu .box-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.menu .box-container1 .box {
+    width: 250px; /* Ajuste o tamanho fixo que você quer */
+    height: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: var(--border);
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    box-shadow: 0 12px 10px -2px rgba(0, 0, 0, 0.1), 4px 0 8px -2px rgba(0, 0, 0, 0.1), -4px 0 8px -2px rgba(0, 0, 0, 0.1), 4px 0 8px -2px rgba(0, 0, 0, 0.0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.menu .box-container1 .box img {
+    width: 100%;
+    height: 21rem;
+    object-fit: center;   /* A imagem vai cobrir todo o espaço do contêiner sem distorcer */
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.menu .box-container1 .box h3 {
+    color: #222;
+    font-family: sans-serif;
+    font-size: 2rem;
+    padding: 1rem 0;
+}
+
+.menu .box-container1 .box .price {
+    color: #333;
+    font-size: 2.5rem;
+}
+
+.menu .box-container1 .box .price span {
+    font-size: 1.5rem;
+    text-decoration: line-through;
+    font-weight: lighter;
+}
+
+.menu .box-container1 .box:hover {
+    transform: scale(1.05); /* Aumenta o tamanho do box */
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 6px 0 12px -2px rgba(0, 0, 0, 0.1), -6px 0 12px -2px rgba(0, 0, 0, 0.1), 6px 0 12px -2px rgba(0, 0, 0, 0.1); /* Aumenta a sombra para dar um efeito de destaque */
+}
+
+.menu .box-container1 .box:hover > * {
+    color: var(--black);
+}
+
+
+
+
+/* navbar */
+
+
+
+
+
+
+
+
+
+
+

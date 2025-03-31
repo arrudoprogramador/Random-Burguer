@@ -1,0 +1,1037 @@
+:root{
+    --main-button: #f9f9f9;
+    --main-color: #824832;
+    --cor-secundari:#FBAA1B;
+    --black: #13131a;
+    --bg: #010103;
+    --border: 0.1rem solid rgba(255,255,255,0.3);
+    --cor-principal:#fff;
+    --cor-primaria: #22C0D4; /* Azul */
+
+    font-size: 10px;
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    transition: 0.2s linear;
+    font-family: "Poppins", sans-serif;
+    outline: none;
+    text-decoration: none;
+}
+
+.nome_usuario{
+    font-size: 18px;
+    color: #fff;
+}
+
+
+
+
+a{
+    outline: none;
+    text-decoration: none;
+}
+.text{
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+}
+
+body{
+    background-color: var(--cor-principal);
+}
+
+.navbar-toggler{
+    border: transparent;
+}
+
+/* Estilização do input de pesquisa */
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.input {
+    padding: 10px;
+    width: 250px; /* Tamanho do campo de pesquisa */
+    border-radius: 20px;
+    border: 2px solid #ccc;
+    font-size: 1rem;
+    outline: none;
+    transition: 0.3s ease;
+}
+
+.input:focus {
+    border-color: var(--cor-primaria); /* Cor ao focar */
+}
+
+.search-button {
+    background-color: var(--cor-primaria);
+    border: none;
+    padding: 10px;
+    border-radius: 20px;
+    color: #fff;
+    cursor: pointer;
+    margin-left: 10px;
+    font-size: 1rem;
+}
+
+.search-button:hover {
+    background-color: #1a8d8d; /* Cor de hover */
+}
+
+.icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #333;
+    width: 25px;
+    height: 25px;
+}
+
+
+/* Personalizando o toggle com barras separadas */
+.navbar-toggler-icon {
+    background-image: none; /* Remove a imagem padrão */
+    display: flex;
+    position: relative;
+    width: 30px;
+    height: 2px;
+    background-color: #fff; /* Cor das barras */
+}
+.container-fluid{
+    padding: 0px 50px 0px 50px ;
+}
+
+.teste{
+    display: flex;
+    flex-direction: row;
+}
+
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 2px;
+    background-color: #fff; /* Cor das outras barras */
+}
+
+.navbar-toggler-icon::before {
+    top: -8px; /* Ajuste a distância das barras */
+}
+
+.navbar-toggler-icon::after {
+    bottom: -8px; /* Ajuste a distância das barras */
+}
+
+
+section{
+    padding: 10rem 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.header{    
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 99;
+    border-bottom: var(--border);
+    width: 100%;  /* Garante que a navbar tenha 100% da largura */
+}
+
+.header section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.header section .icone {
+    width: 7rem;
+    height: 7rem;
+}
+
+.navbar-expand-lg .navbar-collapse{
+    justify-content: center;
+}
+
+.custom-navbar {
+    position: fixed;  /* Fixa a navbar no topo da tela */
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #00000090;  /* Cor de fundo transparente com um pouco de opacidade */
+    color: white;
+    z-index: 10;  /* Garante que a navbar fique acima da imagem */
+    padding: 15px 0;
+}
+
+
+
+.navbar a{
+    margin: 0 1rem;
+    font-size: 1.8rem;
+    color: #fff;
+}
+
+.navbar a:hover{
+    color: var(--main-color);
+    border-bottom: 0.1rem solid var(--main-color);
+    padding-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+img.cart{
+    width: 25px;
+    height: 25px;
+}
+
+.cart{
+    display: flex;
+    flex-direction: column-reverse;
+    padding: 0;
+    margin: 0
+}
+
+a.img{
+    outline: none;
+    text-decoration: none;
+}
+
+
+/* animação do botão carrinho */
+.cart-icon {
+    position: relative;
+    display: inline-block;
+}
+
+.cart-count {
+    position: absolute;
+    top: 6px;
+    right: 200px;
+    background: red;
+    color: white;
+    font-size: 14px;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-weight: bold;
+}
+
+@keyframes addItem {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.5);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.added-animation {
+    animation: addItem 0.3s ease-in-out;
+}
+
+/* barra de pesquisa */
+
+.input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .input {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    padding: 18px 16px;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all .5s ease-in-out;
+  }
+  
+  .input::placeholder {
+    color: transparent;
+  }
+  
+  .input:focus::placeholder {
+    color: rgb(131, 128, 128);
+  }
+  
+  .input:focus,.input:not(:placeholder-shown) {
+    background-color: #fff;
+    border: 1px solid var(--cor-principal);
+    width: 290px;
+    cursor: none;
+    padding: 18px 16px 18px 40px;
+  }
+  
+  .icon {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 40px;
+    width: 40px;
+    background-color: #fff;
+    border-radius: 10px;
+    z-index: -1;
+    fill: var(--cor-secundari);
+    border: 1px solid var(--cor-secundari);
+  }
+  
+  .input:hover + .icon {
+    transform: rotate(360deg);
+    transition: .2s ease-in-out;
+  }
+  
+  .input:focus + .icon,.input:not(:placeholder-shown) + .icon {
+    z-index: 0;
+    background-color: transparent;
+    border: none;
+  }
+  
+/* final barra */
+
+
+/* buttons nav */
+.icons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+.btn_entrar{
+    background: var(--cor-secundari);
+    color: #fff;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    display: inline-block;
+    border-radius: 10px;
+    color: #000;
+    font-weight: 500;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.btn_cadastrar{
+    background: var(--main-color);
+    color: #fff;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-block;
+    border-radius: 10px;
+    color: #fff;
+    font-weight: 500;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+.register_btn{
+    background: var(--main-button);
+    border: 1px solid #444;
+    width: 200px;
+    color: #000;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-top: 1rem;
+    display: inline-block;
+    border-radius: 5px;
+    font-weight: bold;
+    align-items: center;
+    font-family: sans-serif;
+    
+}
+
+
+
+.icons img{
+    cursor: pointer;
+    margin: 0;
+    margin-bottom: 1rem;
+}
+
+.icons img:hover{
+    width: 40px;
+    height: 40px;
+}
+
+.btn{
+    background: var(--cor-secundari);
+    color: #fff;
+    padding: 1rem 3rem;
+    font-size: 1.4rem;
+    cursor: pointer;
+    margin-top: 1rem;    
+    display: inline-block;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bold;
+    align-items: center;
+}
+
+.btn_principal {
+    background: var(--main-button);
+    color: #fff;
+    padding: 0rem 2rem; /* Ajustei o padding para dar um pouco mais de espaço */
+    cursor: pointer;
+    margin-top: 1rem;
+    display: flex;
+    border-radius: 10px;
+    font-weight: bold;
+    align-items: center; /* Alinha verticalmente o conteúdo (ícone e texto) */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    flex-direction: row;
+    gap: 10px;
+}
+
+.btn_principal img {
+    vertical-align: middle; /* Garante que o ícone se alinhe ao meio */
+}
+
+.btn_principal p.text_button {
+    color: #000;
+    font-weight: bold;
+    font-size: 1.5rem;
+    margin: 0; /* Remover qualquer margem extra do p */
+}
+
+
+
+.btn:hover{
+    letter-spacing: 0.1rem;
+}
+
+.home-container {
+    position: relative;
+    width: 100%;
+    height: 90vh;
+}
+
+.background-image {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Garante que a imagem preencha a área sem distorcer */
+    filter: brightness(0.5); /* Escurece a imagem */
+    z-index: -1; /* Coloca a imagem atrás do conteúdo */
+}
+
+
+.home-container section{
+    display: flex;
+    align-items: center;
+    min-height: 80vh;
+}
+
+.content{
+    max-width: 120rem;
+}
+
+.navegação{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* icones de navegação */
+.itens{
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    cursor: pointer;
+    font-weight: 300;
+
+}
+
+.text_nav {
+    font-size: 18px;
+    color: #fff;
+    position: relative;
+    overflow: hidden; /* Garante que a borda não ultrapasse os limites */
+    padding-bottom: 5px; /* Ajusta a distância entre o texto e a borda */
+}
+
+.text_nav::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Coloca a borda na parte inferior */
+    left: 0;
+    width: 100%;
+    height: 2px; /* Espessura da borda */
+    background-color: #fff;
+    transform: translateX(-100%); /* Inicialmente a borda está fora da tela, à esquerda */
+    transition: transform 0.5s ease; /* Transição suave de 0.5 segundos */
+}
+
+.text_nav:hover::after {
+    transform: translateX(0); /* Quando o mouse passa, a borda aparece da esquerda para a direita */
+}
+
+/* Manter o botão toggle visível em telas maiores */
+@media (min-width: 992px) {
+    .navbar-toggler {
+        display: block !important;
+    }
+}
+
+
+.content p.h3{
+    color: #fff;
+    font-size: 6rem;
+    font-weight: 600;
+    font-size: 40px;
+}
+
+.content p {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 100;
+    line-height: 1.8;
+    padding: 1rem 0;
+}
+
+.title{
+    font-size: 2.8rem;
+    color: var(--main-color);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+    font-weight: bold;
+}
+
+.title span{
+    color: #333;
+    text-transform: uppercase;
+    font-weight: bold;
+
+
+}
+.about .row{    
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+.ver{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+    margin-top: 3%;
+    
+}
+
+
+.text_ver{
+    font-size: 22px;
+    font-weight: bold;
+    color: var(--main-color);
+    text-align: center;
+    overflow: hidden;
+    position: relative;
+
+
+}
+
+.text_ver::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Coloca a borda na parte inferior */
+    left: 0;
+    width: 100%;
+    height: 2px; /* Espessura da borda */
+    background-color: var(--main-color);
+    transform: translateX(-100%); /* Inicialmente a borda está fora da tela, à esquerda */
+    transition: transform 0.5s ease; /* Transição suave de 0.5 segundos */
+}
+
+.text_ver:hover::after {
+    transform: translateX(0); /* Quando o mouse passa, a borda aparece da esquerda para a direita */
+}
+
+.about .row .content{
+    padding: 2rem;
+}
+
+.about .row .content h3{
+    font-size: 3rem;
+    color: #fff;
+}
+
+
+.about .row .content p{
+    font-size: 1.6rem;
+    color: #fff;
+    padding: 1rem 0;
+    line-height: 1.8;
+    font-weight: 300;
+}
+
+.box-container{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    gap: 1.5rem;
+    justify-content: center;
+    justify-items: center; /* Centraliza cada box dentro da grid */
+    align-items: center; /* Garante que as caixas sejam centralizadas verticalmente */
+    justify-content: center; /* Centraliza a grid no container, se necessário */   
+     
+}
+
+.box-container1 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 5rem;
+}
+
+.menu .box-container1 .box {
+    width: 250px; /* Ajuste o tamanho fixo que você quer */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border: var(--border);
+    padding-bottom: 3rem;
+    cursor: pointer;
+    border-radius: 10px;
+    background-color: #F9F9F9;
+    box-shadow: 0 12px 10px -2px rgba(0, 0, 0, 0.1), 4px 0 8px -2px rgba(0, 0, 0, 0.1), -4px 0 8px -2px rgba(0, 0, 0, 0.1), 4px 0 8px -2px rgba(0, 0, 0, 0.0);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card_footer{
+    background-color: #fff;
+}
+
+.menu .box-container1 .box img{
+    width: 100%;
+    height: 21rem;
+    object-fit: cover;   /* A imagem vai cobrir todo o espaço do contêiner sem distorcer */
+
+
+}
+
+
+.menu .box-container1 .box h3{
+    color: #222;
+    font-family: sans-serif;
+    font-size: 2rem;
+    padding: 1rem 0; 
+}
+
+.menu .box-container1 .box .price{
+    color:#333;
+    font-size: 2.5rem;
+    padding: 0.5rem 0;
+}
+
+.menu .box-container1 .box .price span{
+    font-size: 1.5rem;
+    text-decoration: line-through;
+    font-weight: lighter;
+}
+
+.menu .box-container1 .box:hover {
+    transform: scale(1.05); /* Aumenta o tamanho do box */
+    box-shadow: 0 6px 12px -2px rgba(0, 0, 0, 0.1), 6px 0 12px -2px rgba(0, 0, 0, 0.1), -6px 0 12px -2px rgba(0, 0, 0, 0.1), 6px 0 12px -2px rgba(0, 0, 0, 0.1); /* Aumenta a sombra para dar um efeito de destaque */
+}
+
+.menu .box-container1 .box:hover>*{
+    color: var(--black);
+}
+.review .box-container .box{
+    border: var(--border);
+    text-align: center;
+    padding: 3rem 2rem;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    box-shadow: 0 6px 15px -2px rgba(0, 0, 0, 0.2), 4px 0 8px -2px rgba(0, 0, 0, 0.1), -4px 0 8px -2px rgba(0, 0, 0, 0.1), 4px 0 8px -2px rgba(0, 0, 0, 0.0);
+
+}
+
+.review .box-container .box p{
+    font-size: 1.5rem;
+    color: #555;
+    padding: 2rem 0;
+    line-height: 1.8;
+    font-weight: 400;
+}
+
+.review .box-container .box h3{
+    color: #666;
+    font-size: 2rem;
+    margin: 1rem 0;
+}
+.review .box-container .box .user{
+    height: 7rem;
+    width: 7rem;
+    border-radius: 50%;
+}
+
+
+
+.address{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+/* footer */
+
+footer .container{
+    text-align: center;
+    padding: 20px 0px 0px 0px;
+}
+
+
+.footer .share{
+    padding: 1rem 0;
+}
+
+.footer .share img{
+    margin: 0.3rem;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 1rem;
+}
+
+.footer .share img:hover{
+    background-color: var(--main-color);
+}
+
+.list_footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    list-style-type: none; 
+    gap: 40px;
+
+}
+
+footer a.nav-link{
+    color: #fff;
+    font-size: 18px;
+}
+
+footer .list-unstyled{
+    width: 100%;
+}
+
+@media (max-width: 991px) {
+    .icons {
+        display: none;
+    } 
+    .home-container{
+        background-image: none;
+        display: flex;
+        flex-direction: column;
+        padding-top: 15rem;
+        padding-bottom: 800px;
+
+
+    }
+    .row img{
+        max-width: 100%;
+        height: auto;
+    }
+    .about .row{    
+        display: grid;
+        grid-template-columns: repeat(1,1fr);
+        align-items: center;
+        justify-content: center;
+        background-color: var(--black);
+        gap: 1.5rem;
+        max-width:  100%;
+    }
+    section#about.about{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    .address{
+        display: none;
+    }
+
+
+}
+
+.opa{
+    display: flex;
+    flex-direction: row;
+    gap: 50px;
+}
+
+.a1,.a2,.a3{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* register */
+
+.register{
+    background: var(--cor-secundari);
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    padding: 30px 40px 30px 40px;
+    justify-content: space-between;
+
+}
+
+.register h3{
+    color: #000;
+    line-height: 40px;
+
+}
+
+.register h2{
+    color: #000;
+    font-weight: bold;
+}
+
+.register.content{
+
+}   
+
+.register_btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}   
+
+.register_btn{
+
+}  
+
+
+
+/* Estilo geral para o footer */
+footer {
+    background-color: #f9f9f9;
+    color: 555; /* Texto branco */
+    font-family: 'Roboto', sans-serif; /* Fonte personalizada */
+
+}
+
+footer .col-md-4{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    padding: 25px 0px 25px 0px; /* Padding superior e inferior */
+
+}
+
+h2{
+    color: #000;
+}
+
+/* Estilo para os títulos dentro do footer */
+footer h5 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    text-transform: uppercase; /* Títulos em letras maiúsculas */
+    font-weight: bold;
+    color: #555; /* Texto branco */
+
+}
+
+
+hr{
+    border: 2px solid #000;
+}
+
+p {
+    font-size: 13px;
+    color: #555;
+}
+
+footer a.nav-link{
+    color: #333;
+}
+
+footer a.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0; /* Coloca a borda na parte inferior */
+    left: 0;
+    width: 100%;
+    height: 2px; /* Espessura da borda */
+    background-color: var(--cor-secundari);
+    transform: translateX(-100%); /* Inicialmente a borda está fora da tela, à esquerda */
+    transition: transform 0.5s ease; /* Transição suave de 0.5 segundos */
+}
+
+footer a.nav-link:hover::after {
+    transform: translateX(0); /* Quando o mouse passa, a borda aparece da esquerda para a direita */
+}
+
+/* Estilo para os links dentro do footer */
+footer a {
+    color: #555; /* Texto branco */
+    text-decoration: none; /* Remove o sublinhado */
+    transition: color 0.3s ease; /* Transição suave para a mudança de cor */
+    color: 555; /* Texto branco */
+    overflow: hidden;
+    position: relative;
+
+}
+
+/* Estilo para os links quando o mouse passa sobre eles */
+footer a.nav-link:hover {
+    color: #ff9900; /* Cor do link quando o mouse passa por cima */
+    text-decoration: underline; /* Adiciona sublinhado quando passar o mouse */
+}
+
+/* Estilo para a seção de "Links Rápidos" */
+footer .list-unstyled {
+    padding-left: 0;
+}
+
+footer .list-unstyled li {
+    margin-bottom: 8px; /* Espaço entre os links */
+}
+
+/* Estilo para as colunas no footer */
+footer .col-md-4 {
+    margin-bottom: 20px; /* Margem inferior entre as colunas */
+}
+
+/* Estilo para a área de copyright */
+footer .mt-4 {
+    margin-top: 20px; /* Espaçamento acima da seção de copyright */
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+/* Responsividade: ajusta o layout para telas menores */
+@media (max-width: 768px) {
+    footer .col-md-4 {
+        text-align: center; /* Centraliza o texto nas colunas em telas pequenas */
+        margin-bottom: 15px; /* Ajusta a margem entre as colunas */
+    }
+
+    footer .container {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+}
+
+
+
+
+
+
+/* Modal estilizado para aparecer à esquerda */
+.modal-dialog {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 50%;
+    width: 300px; /* Definindo a largura do modal */
+    margin: 0;
+}
+
+.modal-content {
+    height: 100%;
+    width: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    border-radius: 10px;
+
+}
+
+.modal-header {
+    background-color: #fff; /* Cor de fundo do cabeçalho */
+    color: white; /* Cor do texto */
+    padding: 15px;
+    position: relative;
+    border: none;
+    height: 50px;
+    align-items: center;
+}
+
+.modal-header .btn-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    padding: 30px 20px 0px 20px;
+    text-align: center;
+}
+
+.modal .nav-link{
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.navbar-nav {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-item {
+    margin-bottom: 10px;
+}
+
+.nav-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: #007bff; /* Cor ao passar o mouse */
+}
+/* Estilizando o botão de fechamento 'X' no modal */
+.modal-header .btn-close {
+    color: black; /* Cor do 'X' */
+    font-size: 3rem; /* Tamanho da fonte */
+    background: transparent; /* Fundo transparente */
+    border: none; /* Sem borda */
+    position: absolute; /* Posiciona o botão no canto superior direito */
+    top: 10px;
+    right: 10px;
+}
+
+
+

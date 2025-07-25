@@ -62,6 +62,7 @@ Route::get('/carrinho', [CartController::class, 'visualizarCarrinho'])->name('ca
 Route::post('/carrinho/adicionar/{id}', [CartController::class, 'adicionarAoCarrinho'])->name('carrinho.adicionar');
 Route::post('/carrinho/remover/{id}', [CartController::class, 'removerDoCarrinho'])->name('carrinho.remover');
 Route::post('/carrinho/limpar', [CartController::class, 'limparCarrinho'])->name('carrinho.limpar');
+Route::put('/carrinho/atualizar/{id}', [CartController::class, 'atualizar'])->name('carrinho.atualizar');
 
 
 //Componentes
@@ -98,6 +99,7 @@ Route::get('/lanchesCadastrados', [ControllerLanches::class, 'admin'])->name('la
 
 Route::get('/clientesCadastrados', [ControllerCliente::class, 'index'])->name('clientes.admin');
 
+Route::get('/admin', [controllerLanches::class, 'vendasTotais'])->name('dashboard');
 // Formulário de cadastro de lanche
 Route::get('/areaAdmin/registerLanche', [ControllerLanches::class, 'create'])->name('lanches.create');
 

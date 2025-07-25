@@ -18,6 +18,7 @@
             <nav class="mt-6">
                 <ul>
                     <a href="{{url('/admin')}}"><li class="py-2 px-4 hover:bg-gray-400 rounded mt-2 cursor-pointer">Dashboard</li></a>
+                    <a href="{{url('pedidos')}}"><li class="py-2 px-4 hover:bg-gray-700 rounded mt-2 cursor-pointer">Pedidos</li></a>
                     <a href="{{url('clientesCadastrados')}}"><li class="py-2 px-4 hover:bg-gray-700 rounded mt-2 cursor-pointer">Clientes</li></a>
                     <a href="{{url('registerLanche')}}"><li class="py-2 px-4 hover:bg-gray-700 rounded mt-2 cursor-pointer">Registrar Lanches</li></a>
                     <a href="{{url('lanchesCadastrados')}}"><li class="py-2 px-4 bg-gray-400 rounded mt-2 cursor-pointer">Lanches</li></a>

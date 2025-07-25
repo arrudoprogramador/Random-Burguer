@@ -45,7 +45,6 @@ h1.text{
 
 .img {
     flex: 1;
-    background-image: url('/img/yeloow.png'); /* Caminho absoluto a partir da raiz pública */
     background-color: #F5F5F5;
     background-size: contain;
     background-position: center;

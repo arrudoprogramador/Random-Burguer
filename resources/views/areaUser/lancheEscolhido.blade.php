@@ -11,14 +11,6 @@
                 <div class="img">
                     <img src="{{ url('/img/lanches/' . $lanche->fotoLanche) }}" alt="Imagem do lanche">
                 </div>
-
-                <div class="itens">
-                    <form action="{{ route('carrinho.adicionar', $lanche->id) }}" method="POST">
-                        @csrf
-
-
-                    </form>
-                </div>
             </div>
 
             <div class="content_desc">
@@ -30,24 +22,27 @@
                         <p class="valor">Valor lanche:</p>
                         R$ {{ number_format($lanche->valorLanche, 2, ',', '.') }}
                     </div>
-                    
+                </div>
 
+                @if(auth()->check())
+                <form action="{{ route('carrinho.adicionar', $lanche->id) }}" method="POST">
+                    @csrf
                     <div class="input-quantidade">
-                            <label for="quantidade">Quantidade:</label>
-                            <input type="number" id="quantidade" name="quantidade" value="1" min="1" max="10">
-                        </div>
-                </div>
-                <div class="buttons">
-                    <div>
-                    <a href="{{ url('/lanches') }}" class="button2">
-                        Continuar navegando
-                    </a>
+                        <label for="quantidade">Quantidade:</label>
+                        <input type="number" id="quantidade" name="quantidade" value="1" min="1" max="10">
                     </div>
 
-                    <div class="price_button">
-                        <button class="add-to-cart">Adicionar ao carrinho</button>
+                    <div class="buttons">
+                        <a href="{{ url('/lanches') }}" class="button2">Continuar navegando</a>
+                        <button type="submit" class="button1 add-to-cart">Adicionar ao carrinho</button>
                     </div>
+                </form>
+                @else
+                <div class="buttons">
+                    <a href="{{ url('/lanches') }}" class="button2">Continuar navegando</a>
+                    <a href="{{ route('login.index') }}" class="button1">Faça login para comprar</a>
                 </div>
+                @endif
             </div>
         </div>
     </div>
@@ -59,20 +54,28 @@
             const cartButton = document.querySelector(".add-to-cart");
             const cartIndicator = document.querySelector(".cart-icon");
 
-            cartIcon.textContent = cartCount;
-
-            cartButton.addEventListener("click", function () {
-                cartCount++;
+            if (cartIcon) {
                 cartIcon.textContent = cartCount;
-                cartIcon.style.display = "flex";
-                animateCart();
-            });
+            }
+
+            if (cartButton) {
+                cartButton.addEventListener("click", function () {
+                    cartCount++;
+                    if (cartIcon) {
+                        cartIcon.textContent = cartCount;
+                        cartIcon.style.display = "flex";
+                    }
+                    animateCart();
+                });
+            }
 
             function animateCart() {
-                cartIndicator.classList.add("animate");
-                setTimeout(() => {
-                    cartIndicator.classList.remove("animate");
-                }, 500);
+                if (cartIndicator) {
+                    cartIndicator.classList.add("animate");
+                    setTimeout(() => {
+                        cartIndicator.classList.remove("animate");
+                    }, 500);
+                }
             }
         });
     </script>

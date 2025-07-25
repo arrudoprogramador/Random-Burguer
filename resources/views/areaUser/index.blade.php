@@ -60,20 +60,17 @@
             <div class="box">
             <img src="{{ asset('img/lanches/1.jpg') }}" alt="item-2">
             <h3>lanche2</h3>
-                <!-- <div class="price">R$ 50,99 <span>R$ 100,99</span></div> -->
-                <!-- <a href="#" class="btn">Adicione ao carrinho</a> -->
+                
             </div>
             <div class="box">
             <img src="{{ asset('img/lanches/3.jpg') }}" alt="item-2">
                 <h3>lanche3</h3>
-                <!-- <div class="price">R$ 25,99 <span>R$ 50,99</span></div> -->
-                <!-- <a href="#" class="btn">Adicione ao carrinho</a> -->
+                
             </div>
             <div class="box">
             <img src="{{ asset('img/lanches/4.jpg') }}" alt="item-2">
                 <h3>lanche4</h3>
-                <!-- <div class="price">R$ 25,99 <span>R$ 50,99</span></div> -->
-                <!-- <a href="#" class="btn">Adicione ao carrinho</a> -->
+                
             </div>
         </div>
 

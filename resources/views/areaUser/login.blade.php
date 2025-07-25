@@ -1,4 +1,4 @@
-@extends('areaUser.layouts.app')
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -31,7 +31,7 @@
     @endif
     <div class="contain">
     <div class="img">
-            <!-- <img src="{{ asset('img/Tela_cadastri.png') }}" alt="Tela de cadastro"> -->
+             <img src="{{ url('img/yeloow.png') }}" alt="Tela de cadastro"> 
     </div>
     <div class="content">
 

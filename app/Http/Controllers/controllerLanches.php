@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\LancheModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class controllerLanches extends Controller
 {
@@ -11,6 +12,32 @@ class controllerLanches extends Controller
     {
         $lanches = lancheModel::all();
         return view('areaUser.lanches', compact('lanches'));      
+    }
+
+    public function vendasTotais()
+    {
+        $totalArrecadado = LancheModel::sum(DB::raw('quant_vendas * valorLanche'));
+        $totalVendas = LancheModel::sum('quant_vendas');
+        $totalVendasLanches = LancheModel::select('nomeLanche', 'quant_vendas')->get();
+        $maisVendido = LancheModel::orderByDesc('quant_vendas')->first();
+        $topLanches = LancheModel::orderByDesc('quant_vendas')->take(5)->get();
+
+
+        return view('areaAdmin.index', [
+            'vendasLanches' => $totalVendasLanches,
+            'totalVendas' => $totalVendas,
+            'maisVendido' => $maisVendido,
+            'topLanches'=> $topLanches,
+            'totalArrecadado' => $totalArrecadado,
+
+        ]);
+    }
+
+    public function show4()
+    {
+        $lanchesFavoritos = LancheModel::inRandomOrder()->take(4)->get();
+
+        return view('areaUser.index', compact('lanchesFavoritos'));
     }
 
     public function admin()

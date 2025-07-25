@@ -25,6 +25,33 @@ class CartController extends Controller
         return redirect()->back()->with('success', 'Lanche adicionado ao carrinho!');
     }
 
+
+    public function atualizar(Request $request, $id)
+    {
+        // Valida a quantidade enviada pelo formulário
+        $request->validate([
+            'quantidade' => 'required|integer|min:1'
+        ]);
+    
+        // Obtém o carrinho da sessão
+        $carrinho = session()->get('carrinho');
+    
+        // Verifica se o item existe no carrinho
+        if (isset($carrinho[$id])) {
+            // Atualiza a quantidade do item
+            $carrinho[$id]['quantidade'] = $request->quantidade;
+    
+            // Atualiza a sessão do carrinho
+            session()->put('carrinho', $carrinho);
+    
+            return redirect()->route('carrinho.visualizar')->with('success', 'Quantidade atualizada!');
+        }
+    
+        return redirect()->route('carrinho.index')->with('error', 'Item não encontrado no carrinho.');
+    }
+    
+
+
     public function visualizarCarrinho()
     {
         $carrinho = session()->get('carrinho', []);

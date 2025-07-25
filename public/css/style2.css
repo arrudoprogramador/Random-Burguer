@@ -93,7 +93,7 @@ margin: 10px 0 5px;
 color: var(--cor-texto);
 }
 
-input[type="text1"],
+input[type="text"],
 input[type="date"],
 input[type="password"] {
 width: 100%;

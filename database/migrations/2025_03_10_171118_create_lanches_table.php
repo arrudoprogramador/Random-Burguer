@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('descLanche');
             $table->string('fotoLanche')->nullable();
             $table->decimal('valorLanche', 8, 2);
+            $table->integer('quant_vendas');
             $table->timestamps();
         });
     }

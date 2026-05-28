@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('lanche_models', function (Blueprint $table) {
+        Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
-            $table->string('nomeLanche');
-            $table->string('descLanche');
-            $table->string('fotoLanche')->nullable();
-            $table->decimal('valorLanche', 8, 2);
-            $table->integer('quant_vendas');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('lanches');
+        Schema::dropIfExists('pedidos');
     }
 };

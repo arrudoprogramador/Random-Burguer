@@ -1,230 +1,219 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Tempo de geração: 24/03/2025 às 04:31
--- Versão do servidor: 10.4.32-MariaDB
--- Versão do PHP: 8.2.12
+CREATE TABLE users (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
+    name VARCHAR(120) NOT NULL,
+    email VARCHAR(150) NOT NULL UNIQUE,
+    telefone VARCHAR(20),
+
+    password VARCHAR(255) NOT NULL,
+
+    role ENUM('admin', 'cliente') DEFAULT 'cliente',
+
+    foto VARCHAR(255) NULL,
+
+    ativo BOOLEAN DEFAULT TRUE,
+
+    email_verified_at TIMESTAMP NULL,
+
+    remember_token VARCHAR(100) NULL,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL
+);
+
+CREATE TABLE categorias (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    nome VARCHAR(100) NOT NULL UNIQUE,
+
+    slug VARCHAR(120) NOT NULL UNIQUE,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL
+);
+
+CREATE TABLE lanches (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    categoria_id BIGINT UNSIGNED NOT NULL,
+
+    nome VARCHAR(150) NOT NULL,
+
+    slug VARCHAR(180) NOT NULL UNIQUE,
+
+    descricao TEXT NOT NULL,
+
+    imagem VARCHAR(255) NULL,
+
+    preco DECIMAL(10,2) NOT NULL,
+
+    estoque INT DEFAULT 0,
+
+    destaque BOOLEAN DEFAULT FALSE,
+
+    ativo BOOLEAN DEFAULT TRUE,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+    deleted_at TIMESTAMP NULL,
+
+    CONSTRAINT fk_lanche_categoria
+        FOREIGN KEY (categoria_id)
+        REFERENCES categorias(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE pedidos (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    user_id BIGINT UNSIGNED NOT NULL,
+
+    status ENUM(
+        'pendente',
+        'preparando',
+        'entregando',
+        'concluido',
+        'cancelado'
+    ) DEFAULT 'pendente',
+
+    subtotal DECIMAL(10,2) NOT NULL,
+
+    taxa_entrega DECIMAL(10,2) DEFAULT 0,
+
+    desconto DECIMAL(10,2) DEFAULT 0,
+
+    total DECIMAL(10,2) NOT NULL,
+
+    observacoes TEXT NULL,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    CONSTRAINT fk_pedido_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE pedido_itens (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    pedido_id BIGINT UNSIGNED NOT NULL,
+
+    lanche_id BIGINT UNSIGNED NOT NULL,
+
+    quantidade INT NOT NULL DEFAULT 1,
+
+    preco_unitario DECIMAL(10,2) NOT NULL,
+
+    subtotal DECIMAL(10,2) NOT NULL,
+
+    observacao TEXT NULL,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    CONSTRAINT fk_item_pedido
+        FOREIGN KEY (pedido_id)
+        REFERENCES pedidos(id)
+        ON DELETE CASCADE,
+
+    CONSTRAINT fk_item_lanche
+        FOREIGN KEY (lanche_id)
+        REFERENCES lanches(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE enderecos (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    user_id BIGINT UNSIGNED NOT NULL,
+
+    cep VARCHAR(10),
+    rua VARCHAR(150),
+    numero VARCHAR(20),
+    bairro VARCHAR(100),
+    cidade VARCHAR(100),
+    estado VARCHAR(2),
+    complemento VARCHAR(150),
+
+    principal BOOLEAN DEFAULT FALSE,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    CONSTRAINT fk_endereco_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE pagamentos (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+
+    pedido_id BIGINT UNSIGNED NOT NULL,
+
+    metodo ENUM(
+        'pix',
+        'credito',
+        'debito',
+        'dinheiro'
+    ) NOT NULL,
+
+    status ENUM(
+        'pendente',
+        'pago',
+        'falhou',
+        'reembolsado'
+    ) DEFAULT 'pendente',
+
+    transaction_id VARCHAR(255) NULL,
+
+    valor DECIMAL(10,2) NOT NULL,
+
+    created_at TIMESTAMP NULL,
+    updated_at TIMESTAMP NULL,
+
+    CONSTRAINT fk_pagamento_pedido
+        FOREIGN KEY (pedido_id)
+        REFERENCES pedidos(id)
+        ON DELETE CASCADE
+);
 
 
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
+INSERT INTO categorias (id, nome, slug, created_at, updated_at)
+VALUES(1, 'Hambúrgueres', 'hamburgueres', NOW(), NOW()),
+      (2, 'Bebidas', 'bebidas', NOW(), NOW()),
+      (3, 'Combos', 'combos', NOW(), NOW());
 
---
--- Banco de dados: `bd_lanches`
---
 
--- --------------------------------------------------------
+INSERT INTO users ( id, name, email, telefone, password, role, ativo, created_at, updated_at)
+VALUES (1, 'Administrador', 'admin@randomburguer.com', '11999999999', '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/.V5f9Vf9lY6Pe', 'admin', 1, NOW(), NOW() );
 
---
--- Estrutura para tabela `failed_jobs`
---
 
-CREATE TABLE `failed_jobs` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `uuid` varchar(255) NOT NULL,
-  `connection` text NOT NULL,
-  `queue` text NOT NULL,
-  `payload` longtext NOT NULL,
-  `exception` longtext NOT NULL,
-  `failed_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO lanches (id, categoria_id, nome, slug, descricao, imagem, preco, estoque, destaque, ativo, created_at, updated_at)
+VALUES(1, 1,'Triplo Bacon','triplo-bacon', 'Hambúrguer artesanal com triplo bacon e cheddar.', 'triplo-bacon.jpg', 34.90, 50, 1, 1, NOW(), NOW()),
+      (2, 1, 'X-Mata Fome','x-mata-fome', 'Hambúrguer duplo com onion rings e molho especial.', 'x-mata-fome.jpg', 39.90, 40, 1, 1, NOW(), NOW());
 
--- --------------------------------------------------------
 
---
--- Estrutura para tabela `lanche_models`
---
+INSERT INTO enderecos (id, user_id, cep, rua, numero, bairro, cidade, estado, complemento, principal, created_at, updated_at)
+VALUES(1, 1, '01001-000', 'Rua das Palmeiras','120', 'Centro', 'São Paulo', 'SP', 'Apartamento 12', 1, NOW(), NOW()),
+      (2, 1, '04567-000', 'Avenida Paulista', '1500', 'Bela Vista','São Paulo', 'SP', 'Casa', 0, NOW(), NOW());
 
-CREATE TABLE `lanche_models` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nomeLanche` varchar(255) NOT NULL,
-  `descLanche` varchar(255) NOT NULL,
-  `fotoLanche` varchar(255) DEFAULT NULL,
-  `valorLanche` decimal(8,2) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+INSERT INTO pedidos (id,user_id, status, subtotal, taxa_entrega, desconto, total, observacoes, created_at, updated_at)
+VALUES
+    (1, 1, 'pendente', 74.80, 8.00, 0, 82.80, 'Sem cebola', NOW(), NOW()),
+    (2, 1, 'concluido', 39.90, 5.00, 0, 44.90, 'Entrega rápida', NOW(), NOW());
 
---
--- Despejando dados para a tabela `lanche_models`
---
 
-INSERT INTO `lanche_models` (`id`, `nomeLanche`, `descLanche`, `fotoLanche`, `valorLanche`, `created_at`, `updated_at`) VALUES
-(17, 'Triplo bacon', 'w', '1742784623.jpg', 11.00, '2025-03-22 21:58:23', '2025-03-24 05:50:23'),
-(18, 'X-Mata Fome', 's', '1742670250.jpg', 12.00, '2025-03-22 22:04:10', '2025-03-22 22:04:10'),
-(20, 'Hamburguer de siri', 'Das profundezas da fenda do bíquini, o irresistível hambúrguer de Siri.', '1742673843.jpg', 11.00, '2025-03-22 23:04:03', '2025-03-22 23:04:03'),
-(21, 'Hambúrguer de Siri', 's', '1742784529.jpg', 12.00, '2025-03-24 05:27:25', '2025-03-24 05:48:49'),
-(22, 'Favorito da casa', 'd', '1742784969.jpg', 12.00, '2025-03-24 05:56:09', '2025-03-24 05:56:09'),
-(23, 's', 's', '1742785039.jpg', 12.00, '2025-03-24 05:57:19', '2025-03-24 05:57:19');
+INSERT INTO pedido_itens (id, pedido_id, lanche_id, quantidade, preco_unitario, subtotal, observacao, created_at, updated_at)
+VALUES
+    (1, 1, 1, 1, 34.90, 34.90, 'Ponto da carne bem passado', NOW(), NOW()),
+    (2, 1, 2, 1, 39.90, 39.90, 'Sem picles', NOW(), NOW()),
+    (3, 2, 2, 1, 39.90, 39.90, NULL, NOW(), NOW());
 
--- --------------------------------------------------------
 
---
--- Estrutura para tabela `migrations`
---
-
-CREATE TABLE `migrations` (
-  `id` int(10) UNSIGNED NOT NULL,
-  `migration` varchar(255) NOT NULL,
-  `batch` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Despejando dados para a tabela `migrations`
---
-
-INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(13, '2014_10_12_000000_create_users_table', 1),
-(14, '2014_10_12_100000_create_password_resets_table', 1),
-(15, '2019_08_19_000000_create_failed_jobs_table', 1),
-(16, '2019_12_14_000001_create_personal_access_tokens_table', 1);
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `password_resets`
---
-
-CREATE TABLE `password_resets` (
-  `email` varchar(255) NOT NULL,
-  `token` varchar(255) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `personal_access_tokens`
---
-
-CREATE TABLE `personal_access_tokens` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `tokenable_type` varchar(255) NOT NULL,
-  `tokenable_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `abilities` text DEFAULT NULL,
-  `last_used_at` timestamp NULL DEFAULT NULL,
-  `expires_at` timestamp NULL DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Estrutura para tabela `users`
---
-
-CREATE TABLE `users` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `email` varchar(255) NOT NULL,
-  `dataNasc` date NOT NULL,
-  `email_verified_at` timestamp NULL DEFAULT NULL,
-  `password` varchar(255) NOT NULL,
-  `remember_token` varchar(100) DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Despejando dados para a tabela `users`
---
-
-INSERT INTO `users` (`id`, `nome`, `email`, `dataNasc`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Alisson', 'garro@gmail.com', '2025-03-03', NULL, '$2y$10$m84wdQ5.ejz4hdheBfQ4A.traFgC.PrpixZioOEdGqft5gu5J76qi', NULL, '2025-03-24 05:52:08', '2025-03-24 05:52:08'),
-(2, 'Arruda lindo', 'arruda12@gmail.com', '2025-03-09', NULL, '$2y$10$u81YQyc6PI5Hz7NRS4FiQO./iiGSHrfDcLPmH05ArGQAD7Sc8D0eS', NULL, '2025-03-24 06:07:12', '2025-03-24 06:07:12'),
-(4, 'triplo bacon', 'arruda@gmail.com', '2025-03-12', NULL, '$2y$10$1puMWbmH.Mv1PpNIsk97I.rZQmnyMy/M/4BRVqAQjxay.2uerZFUi', NULL, '2025-03-24 06:20:14', '2025-03-24 06:20:14'),
-(8, 'Kevin Borges de Souza', 'yurialberto@gmail.com', '2025-03-03', NULL, '$2y$10$lHxE3i4zeWPv5/HBknn5QeS7FTrh3K/35USg6DlNrjQCZi5qfTSCu', NULL, '2025-03-24 06:29:52', '2025-03-24 06:29:52');
-
---
--- Índices para tabelas despejadas
---
-
---
--- Índices de tabela `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
-
---
--- Índices de tabela `lanche_models`
---
-ALTER TABLE `lanche_models`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices de tabela `migrations`
---
-ALTER TABLE `migrations`
-  ADD PRIMARY KEY (`id`);
-
---
--- Índices de tabela `password_resets`
---
-ALTER TABLE `password_resets`
-  ADD KEY `password_resets_email_index` (`email`);
-
---
--- Índices de tabela `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
-  ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
-
---
--- Índices de tabela `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- AUTO_INCREMENT para tabelas despejadas
---
-
---
--- AUTO_INCREMENT de tabela `failed_jobs`
---
-ALTER TABLE `failed_jobs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `lanche_models`
---
-ALTER TABLE `lanche_models`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT de tabela `migrations`
---
-ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT de tabela `personal_access_tokens`
---
-ALTER TABLE `personal_access_tokens`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT de tabela `users`
---
-ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+INSERT INTO pagamentos (id, pedido_id, metodo, status, transaction_id, valor, created_at, updated_at)
+VALUES
+    (1, 1, 'pix', 'pago', 'PIX-20250324-0001', 82.80, NOW(), NOW());

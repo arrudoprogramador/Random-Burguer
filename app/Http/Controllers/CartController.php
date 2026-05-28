@@ -1,13 +1,13 @@
 <?php
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-use App\Models\LancheModel;
+use App\Models\Lanche;
 
 class CartController extends Controller
 {
     public function adicionarAoCarrinho(Request $request, $id)
     {
-        $lanche = LancheModel::findOrFail($id);
+        $lanche = Lanche::findOrFail($id);
         $carrinho = session()->get('carrinho', []);
 
         if (isset($carrinho[$id])) {

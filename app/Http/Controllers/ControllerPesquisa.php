@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\lancheModel;
+use App\Models\Lanche;
 use App\Models\User;
 
 class ControllerPesquisa extends Controller
@@ -12,7 +12,7 @@ class ControllerPesquisa extends Controller
     {
         $query = $request->input('pesquisar');
 
-        $lanches = lancheModel::where('nomeLanche', 'like', '%'.$query.'%')->get();
+        $lanches = Lanche::where('nomeLanche', 'like', '%'.$query.'%')->get();
 
         return view('areaUser.lanches', compact('lanches'));
     }
@@ -21,7 +21,7 @@ class ControllerPesquisa extends Controller
     {
         $query = $request->input('pesquisar');
 
-        $lanches = lancheModel::where('nomeLanche', 'like', '%'.$query.'%')->get();
+        $lanches = Lanche::where('nomeLanche', 'like', '%'.$query.'%')->get();
 
         // Retorna a view com os resultados da pesquisa
         return view('areaAdmin.lanchesCadastrados', compact('lanches'));
@@ -33,7 +33,7 @@ class ControllerPesquisa extends Controller
         $query = $request->input('pesquisar');
 
         // Realiza a pesquisa de usuários com base no nome, email ou id
-        $Cliente = User::where('nome', 'like', '%'.$query.'%')
+        $Cliente = user::where('nome', 'like', '%'.$query.'%')
         ->orWhere('email', 'like', '%'.$query.'%')
         ->orWhere('id', 'like', '%'.$query.'%')
         ->get();

@@ -13,21 +13,39 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
-    protected $fillable = ['nome', 'email', 'dataNasc', 'password'];
+    protected $fillable = [
+        'name',
+        'email',
+        'telefone',
+        'password',
+        'role',
+        'foto',
+        'ativo',
+    ];
 
-    protected $hidden = ['password', 'remember_token'];
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
 
-    protected $casts = ['email_verified_at' => 'datetime'];
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'ativo' => 'boolean',
+    ];
 
-    // Permite que Laravel acesse `nome` como `name`
-    public function getNameAttribute()
+    /*
+    |--------------------------------------------------------------------------
+    | RELACIONAMENTOS
+    |--------------------------------------------------------------------------
+    */
+
+    public function pedidos()
     {
-        return $this->attributes['nome'];
+        return $this->hasMany(Pedido::class);
     }
 
-    // Garante que a senha sempre seja criptografada ao ser salva
-    public function setPasswordAttribute($value)
+    public function enderecos()
     {
-        $this->attributes['password'] = bcrypt($value);
+        return $this->hasMany(Endereco::class);
     }
 }

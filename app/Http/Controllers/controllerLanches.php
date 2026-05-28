@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\LancheModel;
+use App\Models\Lanche;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -10,17 +10,17 @@ class controllerLanches extends Controller
 {
     public function index()
     {
-        $lanches = lancheModel::all();
+        $lanches = Lanche::all();
         return view('areaUser.lanches', compact('lanches'));      
     }
 
     public function vendasTotais()
     {
-        $totalArrecadado = LancheModel::sum(DB::raw('quant_vendas * valorLanche'));
-        $totalVendas = LancheModel::sum('quant_vendas');
-        $totalVendasLanches = LancheModel::select('nomeLanche', 'quant_vendas')->get();
-        $maisVendido = LancheModel::orderByDesc('quant_vendas')->first();
-        $topLanches = LancheModel::orderByDesc('quant_vendas')->take(5)->get();
+        $totalArrecadado = Lanche::sum(DB::raw('quant_vendas * valorLanche'));
+        $totalVendas = Lanche::sum('quant_vendas');
+        $totalVendasLanches = Lanche::select('nomeLanche', 'quant_vendas')->get();
+        $maisVendido = Lanche::orderByDesc('quant_vendas')->first();
+        $topLanches = Lanche::orderByDesc('quant_vendas')->take(5)->get();
 
 
         return view('areaAdmin.index', [
@@ -33,16 +33,10 @@ class controllerLanches extends Controller
         ]);
     }
 
-    public function show4()
-    {
-        $lanchesFavoritos = LancheModel::inRandomOrder()->take(4)->get();
-
-        return view('areaUser.index', compact('lanchesFavoritos'));
-    }
 
     public function admin()
     {
-        $lanches = lancheModel::all();
+        $lanches = Lanche::all();
         return view('areaAdmin.lanchesCadastrados', compact('lanches'));      
     }
 
@@ -53,7 +47,7 @@ class controllerLanches extends Controller
 
     public function show($id)
     {
-        $lanche = LancheModel::find($id);
+        $lanche = Lanche::find($id);
         
         return view('areaUser.lancheEscolhido', compact('lanche'));      
     }
@@ -61,7 +55,7 @@ class controllerLanches extends Controller
 
     public function destroy($id)
     {
-        $lanche = LancheModel::find($id);
+        $lanche = Lanche::find($id);
 
         // Verificar se o lanche existe
         if ($lanche) {
@@ -78,7 +72,7 @@ class controllerLanches extends Controller
 
     public function edit($id)
     {
-        if (!$lanche = LancheModel::find($id))
+        if (!$lanche = Lanche::find($id))
             return redirect()->route('users.index');
 
         return view('/areaAdmin/editLanche', compact('lanche'));
@@ -95,7 +89,7 @@ class controllerLanches extends Controller
         ]);
     
         // Encontrar o lanche pelo id
-        if (!$lanche = LancheModel::find($id)) {
+        if (!$lanche = Lanche::find($id)) {
             return redirect()->route('users.index');
         }
     
@@ -155,7 +149,7 @@ class controllerLanches extends Controller
 
     try {
         // Criar um novo lanche
-        $lanche = new LancheModel();
+        $lanche = new Lanche();
         $lanche->nomeLanche = $request->input('nomeLanche');
         $lanche->descLanche = $request->input('descLanche');
         $lanche->valorLanche = $request->input('valorLanche');

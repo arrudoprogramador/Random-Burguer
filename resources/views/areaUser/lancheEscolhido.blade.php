@@ -3,7 +3,7 @@
 @section('title', $lanche->nomeLanche . ' - Detalhes')
 
 @section('content')
-    <link rel="stylesheet" href="{{ url('/css/style4.css') }}">
+    <link rel="stylesheet" href="{{ url('/css/styleLancheSelecionado.css') }}">
 
     <div class="container">
         <div class="content">

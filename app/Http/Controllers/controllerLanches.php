@@ -14,24 +14,31 @@ class controllerLanches extends Controller
         return view('areaUser.lanches', compact('lanches'));      
     }
 
-    public function vendasTotais()
+    public function show4()
     {
-        $totalArrecadado = Lanche::sum(DB::raw('quant_vendas * valorLanche'));
-        $totalVendas = Lanche::sum('quant_vendas');
-        $totalVendasLanches = Lanche::select('nomeLanche', 'quant_vendas')->get();
-        $maisVendido = Lanche::orderByDesc('quant_vendas')->first();
-        $topLanches = Lanche::orderByDesc('quant_vendas')->take(5)->get();
+        $lanchesFavoritos = Lanche::inRandomOrder()->take(4)->get();
 
-
-        return view('areaAdmin.index', [
-            'vendasLanches' => $totalVendasLanches,
-            'totalVendas' => $totalVendas,
-            'maisVendido' => $maisVendido,
-            'topLanches'=> $topLanches,
-            'totalArrecadado' => $totalArrecadado,
-
-        ]);
+        return view('areaUser.index', compact('lanchesFavoritos'));
     }
+
+    // public function vendasTotais()
+    // {
+    //     $totalArrecadado = Lanche::sum(DB::raw('quant_vendas * valorLanche'));
+    //     $totalVendas = Lanche::sum('quant_vendas');
+    //     $totalVendasLanches = Lanche::select('nomeLanche', 'quant_vendas')->get();
+    //     $maisVendido = Lanche::orderByDesc('quant_vendas')->first();
+    //     $topLanches = Lanche::orderByDesc('quant_vendas')->take(5)->get();
+
+
+    //     return view('areaAdmin.index', [
+    //         'vendasLanches' => $totalVendasLanches,
+    //         'totalVendas' => $totalVendas,
+    //         'maisVendido' => $maisVendido,
+    //         'topLanches'=> $topLanches,
+    //         'totalArrecadado' => $totalArrecadado,
+
+    //     ]);
+    // }
 
 
     public function admin()

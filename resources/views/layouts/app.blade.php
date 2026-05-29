@@ -64,6 +64,8 @@
         .opacity-0-init { opacity: 0; }
     </style>
 
+    
+
     @stack('styles')
 </head>
 <body class="antialiased">

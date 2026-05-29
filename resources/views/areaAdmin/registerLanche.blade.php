@@ -43,12 +43,12 @@
                     </div>
                     <div class="md:col-span-2">
                         <div class="mb-3">
-                            <label for="nomeLanche" class="form-label">Nome:</label>
-                            <input type="text" class="form-control" name="nomeLanche" id="nomeLanche" required>
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" name="nome" id="nome" required>
                         </div>
                         <div class="mb-3">
-                            <label for="descLanche" class="form-label">Descrição:</label>
-                            <textarea class="form-control" name="descLanche" id="descLanche"></textarea>
+                            <label for="descricao" class="form-label">Descrição:</label>
+                            <textarea class="form-control" name="descricao" id="descricao"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="preco" class="form-label">Preço:</label>

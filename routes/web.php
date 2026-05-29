@@ -10,9 +10,7 @@ use App\Http\Controllers\CartController;
 use Illuminate\Support\Facades\Http;
 
 //gets User
-Route::get('/', function () {
-    return view('/areaUser/index');
-});
+Route::get('/', [ControllerLanches::class, 'show4'])->name('home');
 
 
 //gets Adm
@@ -99,7 +97,7 @@ Route::get('/lanchesCadastrados', [ControllerLanches::class, 'admin'])->name('la
 
 Route::get('/clientesCadastrados', [ControllerCliente::class, 'index'])->name('clientes.admin');
 
-Route::get('/admin', [controllerLanches::class, 'vendasTotais'])->name('dashboard');
+// Route::get('/admin', [controllerLanches::class, 'vendasTotais'])->name('dashboard');
 // Formulário de cadastro de lanche
 Route::get('/areaAdmin/registerLanche', [ControllerLanches::class, 'create'])->name('lanches.create');
 

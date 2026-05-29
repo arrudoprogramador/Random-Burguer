@@ -48,7 +48,7 @@
 
             {{-- CTAs --}}
             <div class="opacity-0-init animate-fade-up-3 flex flex-col sm:flex-row gap-4">
-                <a href="#favoritos"
+                <a href="{{ route('areaUser.lanches') }}"
                    class="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand text-black font-semibold text-base hover:bg-brand-light transition-all shadow-xl shadow-brand/30 hover:shadow-brand/50 hover:-translate-y-0.5 active:scale-95">
                     <i class="bi bi-bag-fill text-lg"></i>
                     Ver Cardápio

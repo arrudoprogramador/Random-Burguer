@@ -50,7 +50,6 @@
                 <table class="table table-striped table-bordered w-full">
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <th>Imagem</th>
                             <th>Nome</th>
                             <th>Descrição</th>
@@ -62,12 +61,12 @@
                     <tbody>
                         @foreach($lanches as $l)
                             <tr>
-                            <td>{{ $l->id }}</td>
-                            <td><img src="{{ url('/img/lanches/' . $l->fotoLanche) }}" alt="Imagem do lanche" width="100" height="100"></td>
+                            
+                            <td><img src="{{ url('/img/lanches/' . $l->imagem) }}" alt="Imagem do lanche" width="100" height="100"></td>
                            
-                            <td>{{ $l->nomeLanche }}</td>
-                                <td>{{ $l->descLanche }}</td>
-                                <td>R$ {{ number_format($l->valorLanche, 2, ',', '.') }}</td> <!-- Formatação do preço -->
+                            <td>{{ $l->nome }}</td>
+                                <td>{{ $l->descricao }}</td>
+                                <td>R$ {{ number_format($l->preco, 2, ',', '.') }}</td> <!-- Formatação do preço -->
                                 <td>
                                     <form action="{{ route('lanche.edit', $l->id) }}">
                                         @csrf

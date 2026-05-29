@@ -1,6 +1,6 @@
-@extends('areaUser.layouts.app')
+@extends('layouts.app')
 
-@section('title', $lanche->nomeLanche . ' - Detalhes')
+@section('title', $lanche->nome . ' - Detalhes')
 
 @section('content')
     <link rel="stylesheet" href="{{ url('/css/styleLancheSelecionado.css') }}">
@@ -14,13 +14,13 @@
             </div>
 
             <div class="content_desc">
-                <h1 class="text">{{ $lanche->nomeLanche }}</h1>
-                <p class="p">{{ $lanche->descLanche }}</p>
+                <h1 class="text">{{ $lanche->nome }}</h1>
+                <p class="p">{{ $lanche->descricao }}</p>
 
                 <div class="price">
                     <div class="price_valor_lanche">
                         <p class="valor">Valor lanche:</p>
-                        R$ {{ number_format($lanche->valorLanche, 2, ',', '.') }}
+                        R$ {{ number_format($lanche->preco, 2, ',', '.') }}
                     </div>
                 </div>
 

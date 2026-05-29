@@ -45,14 +45,14 @@
                     </div>
                     <div class="md:col-span-2">
                         <div class="mb-3">
-                            <label for="nomeLanche" class="form-label">Nome:</label>
+                            <label for="nome" class="form-label">Nome:</label>
                             <!-- Preenche o nome do lanche no campo de entrada -->
-                            <input type="text" class="form-control" name="nomeLanche" id="nomeLanche" value="{{ old('nomeLanche', $lanche->nomeLanche) }}" required>
+                            <input type="text" class="form-control" name="nome" id="nome" value="{{ old('nome', $lanche->nome) }}" required>
                         </div>
                         <div class="mb-3">
-                            <label for="descLanche" class="form-label">Descrição:</label>
+                            <label for="descricao" class="form-label">Descrição:</label>
                             <!-- Preenche a descrição do lanche no campo de entrada -->
-                            <textarea class="form-control" name="descLanche" id="descLanche">{{ old('descLanche', $lanche->descLanche) }}</textarea>
+                            <textarea class="form-control" name="descricao" id="descricao">{{ old('descricao', $lanche->descricao) }}</textarea>
                         </div>
                         <div class="mb-3">
                             <label for="valorLanche" class="form-label">Preço:</label>

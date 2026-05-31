@@ -45,12 +45,12 @@ class ControllerLanches extends Controller
     {
         $lanches = Lanche::orderBy('nome')->get();
 
-        return view('areaAdmin.lanchesCadastrados', compact('lanches'));
+        return view('areaAdmin.lanches.lanchesCadastrados', compact('lanches'));
     }
 
     public function create()
     {
-        return view('areaAdmin.registerLanche');
+        return view('areaAdmin.lanches.registerLanche');
     }
 
     public function store(Request $request)
@@ -85,7 +85,7 @@ class ControllerLanches extends Controller
     {
         $lanche = Lanche::findOrFail($id);
 
-        return view('areaAdmin.editLanche', compact('lanche'));
+        return view('areaAdmin.lanches.editLanche', compact('lanche'));
     }
 
     public function update(Request $request, int $id)
@@ -141,17 +141,18 @@ class ControllerLanches extends Controller
 
     public function vendasTotais()
     {
-        $totalArrecadado    = Lanche::sum(DB::raw('quant_vendas * preco'));
-        $totalVendas        = Lanche::sum('quant_vendas');
-        $totalVendasLanches = Lanche::select('nome', 'quant_vendas')->get();
-        $maisVendido        = Lanche::orderByDesc('quant_vendas')->first();
-        $topLanches         = Lanche::orderByDesc('quant_vendas')->take(5)->get();
+        // TODO: implementar quando tabela de pedidos estiver pronta
+        // $totalArrecadado    = Lanche::sum(DB::raw('quant_vendas * preco'));
+        // $totalVendas        = Lanche::sum('quant_vendas');
+        // $totalVendasLanches = Lanche::select('nome', 'quant_vendas')->get();
+        // $maisVendido        = Lanche::orderByDesc('quant_vendas')->first();
+        // $topLanches         = Lanche::orderByDesc('quant_vendas')->take(5)->get();
+
+        $totalLanches = Lanche::count();
+        $topLanches   = Lanche::orderByDesc('preco')->take(5)->get();
 
         return view('areaAdmin.index', compact(
-            'totalArrecadado',
-            'totalVendas',
-            'totalVendasLanches',
-            'maisVendido',
+            'totalLanches',
             'topLanches',
         ));
     }

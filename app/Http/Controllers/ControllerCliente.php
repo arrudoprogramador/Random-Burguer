@@ -19,7 +19,7 @@ class ControllerCliente extends Controller
     {
         $clientes = User::orderBy('name')->get();
 
-        return view('areaAdmin.clientesCadastrados', compact('clientes'));
+        return view('areaAdmin.clientes.clientesCadastrados', compact('clientes'));
     }
 
     public function destroyCliente(int $id)

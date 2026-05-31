@@ -1,33 +1,28 @@
+/** @type {import('tailwindcss').Config} */
 export default {
     content: [
-        "./resources/**/*.blade.php",
-        "./resources/**/*.js",
+        './resources/**/*.blade.php',
+        './resources/**/*.js',
     ],
-
     theme: {
         extend: {
-
             colors: {
-                brand: '#ffb800',
-                'brand-light': '#ffc933',
-
-                surface: '#0b0b0b',
-                'surface-card': '#121212',
-                'surface-muted': '#1e1e1e',
-
-                accent: '#ff6b00',
+                brand: {
+                    DEFAULT: '#F59E0B',
+                    dark:    '#D97706',
+                    light:   '#FCD34D',
+                },
+                surface: {
+                    DEFAULT: '#111111',
+                    card:    '#1A1A1A',
+                    muted:   '#252525',
+                },
             },
-
             fontFamily: {
-                display: ['Bebas Neue', 'sans-serif'],
+                display: ['"Playfair Display"', 'serif'],
+                body:    ['"DM Sans"', 'sans-serif'],
             },
-
-            boxShadow: {
-                glow: '0 0 30px rgba(255,184,0,0.25)',
-            },
-
         },
     },
-
     plugins: [],
 }

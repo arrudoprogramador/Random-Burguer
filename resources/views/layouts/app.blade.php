@@ -6,46 +6,6 @@
     <title>@yield('title', 'RandomBurguer')</title>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            DEFAULT: '#F59E0B', // amber-500
-                            dark:    '#D97706', // amber-600
-                            light:   '#FCD34D', // amber-300
-                        },
-                        surface: {
-                            DEFAULT: '#111111',
-                            card:    '#1A1A1A',
-                            muted:   '#252525',
-                        },
-                    },
-                    fontFamily: {
-                        display: ['"Playfair Display"', 'serif'],
-                        body:    ['"DM Sans"', 'sans-serif'],
-                    },
-                    keyframes: {
-                        fadeUp: {
-                            '0%':   { opacity: '0', transform: 'translateY(32px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        scaleIn: {
-                            '0%':   { opacity: '0', transform: 'scale(0.92)' },
-                            '100%': { opacity: '1', transform: 'scale(1)' },
-                        },
-                    },
-                    animation: {
-                        'fade-up':    'fadeUp 0.7s ease forwards',
-                        'fade-up-2':  'fadeUp 0.7s ease 0.15s forwards',
-                        'fade-up-3':  'fadeUp 0.7s ease 0.3s forwards',
-                        'scale-in':   'scaleIn 0.5s ease forwards',
-                    },
-                },
-            },
-        }
-    </script>
 
     {{-- Alpine.js --}}
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
@@ -64,6 +24,8 @@
         .opacity-0-init { opacity: 0; }
     </style>
 
+    
+
     @stack('styles')
 </head>
 <body class="antialiased">
@@ -72,7 +34,7 @@
     @include('components.navbar')
 
     {{-- Conteúdo principal --}}
-    <main>
+    <main class="pt-20">
         @yield('content')
     </main>
 

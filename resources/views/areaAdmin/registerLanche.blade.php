@@ -29,7 +29,7 @@
 
         <div class="flex justify-center items-center w-full p-3">
         <div class="max-w-4xl w-full bg-white p-6 rounded-lg shadow-md">
-        <form method="POST" action="{{ route('lanches.store') }}" enctype="multipart/form-data">
+        <form method="POST" action="{{ route('admin.lanches.store') }}" enctype="multipart/form-data">
         @csrf
                 <div class="mb-4 text-center">
                     <h3 class="text-lg font-bold bg-primary text-white p-2 rounded">INFORMAÇÕES DO LANCHE</h3>
@@ -38,17 +38,17 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div class="flex flex-col items-center">
                         <img id="preview" src="{{url('/img/sub2.jpg')}}" alt="Imagem do produto" class="rounded-lg w-full h-48 object-cover border border-gray-300">
-                        <label for="fotoLanche" class="btn btn-light mt-2">Carregar Imagem</label>
-                        <input type="file" id="fotoLanche" name="fotoLanche" accept="image/*" class="hidden">
+                        <label for="imagem" class="btn btn-light mt-2">Carregar Imagem</label>
+                        <input type="file" id="imagem" name="imagem" accept="image/*" class="hidden">
                     </div>
                     <div class="md:col-span-2">
                         <div class="mb-3">
-                            <label for="nomeLanche" class="form-label">Nome:</label>
-                            <input type="text" class="form-control" name="nomeLanche" id="nomeLanche" required>
+                            <label for="nome" class="form-label">Nome:</label>
+                            <input type="text" class="form-control" name="nome" id="nome" required>
                         </div>
                         <div class="mb-3">
-                            <label for="descLanche" class="form-label">Descrição:</label>
-                            <textarea class="form-control" name="descLanche" id="descLanche"></textarea>
+                            <label for="descricao" class="form-label">Descrição:</label>
+                            <textarea class="form-control" name="descricao" id="descricao"></textarea>
                         </div>
                         <div class="mb-3">
                             <label for="preco" class="form-label">Preço:</label>

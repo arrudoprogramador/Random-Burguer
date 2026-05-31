@@ -12,16 +12,22 @@ class ControllerPesquisa extends Controller
     {
         $query = $request->input('pesquisar');
 
-        $lanches = Lanche::where('nomeLanche', 'like', '%'.$query.'%')->get();
+        $lanches = Lanche::where('nome', 'like', '%'.$query.'%')
+        ->orWhere('descricao', 'like', '%'.$query.'%')
+        ->orWhere('preco', 'like', '%'.$query.'%')
+        ->get();
 
-        return view('areaUser.lanches', compact('lanches'));
+        return view('lanches.index', compact('lanches'));
     }
 
     public function pesquisarLanches2(Request $request)
     {
         $query = $request->input('pesquisar');
 
-        $lanches = Lanche::where('nomeLanche', 'like', '%'.$query.'%')->get();
+        $lanches = Lanche::where('nome', 'like', '%'.$query.'%')
+        ->orWhere('descricao', 'like', '%'.$query.'%')
+        ->orWhere('preco', 'like', '%'.$query.'%')
+        ->get();
 
         // Retorna a view com os resultados da pesquisa
         return view('areaAdmin.lanchesCadastrados', compact('lanches'));

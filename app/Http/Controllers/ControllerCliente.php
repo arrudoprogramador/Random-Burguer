@@ -4,129 +4,182 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Hash;
 
 class ControllerCliente extends Controller
 {
-    
+    /*
+    |--------------------------------------------------------------------------
+    | ÁREA ADMINISTRATIVA (Web)
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
-        $Cliente = User::all();
-        return view('areaAdmin/clientesCadastrados', compact('Cliente'));      
+        $clientes = User::orderBy('name')->get();
+
+        return view('areaAdmin.clientesCadastrados', compact('clientes'));
     }
 
-    public function indexApi()
+    public function destroyCliente(int $id)
     {
-        // Retorna todos os usuários
-        $Cliente = User::all();
-        return response()->json($Cliente);
-    }
-    
-    public function login()
-    {
+        $cliente = User::findOrFail($id);
+        $cliente->delete();
 
+        return redirect()
+            ->route('admin.clientes.index')
+            ->with('success', 'Cliente removido com sucesso.');
     }
 
-    public function destroyCliente($id)
-    {
-        $Cliente = User::find($id);
-
-        // Verificar se o lanche existe
-        if ($Cliente) {
-            // Excluir o lanche
-            $Cliente->delete();
-
-            // Redirecionar com uma mensagem de sucesso
-            return redirect()->route('clientes.admin')->with('success', 'Lanche excluído com sucesso!');
-        } else {
-            // Caso o lanche não seja encontrado
-            return redirect()->route('clientes.admin')->with('error', 'Lanche não encontrado!');
-        }
-    }
-
+    /*
+    |--------------------------------------------------------------------------
+    | CADASTRO (Web)
+    |--------------------------------------------------------------------------
+    */
 
     public function store(Request $request)
     {
-        $Cliente = new User();
-        $Cliente->nome = $request->input('nome');
-        $Cliente->email = $request->input('email');
-        $Cliente->dataNasc = $request->input('dataNasc');
-        $Cliente->password = $request->input('password');
-        $Cliente->save();
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6|confirmed',
+            'telefone' => 'nullable|string|max:20',
 
-        return view('/areaUser/login');
+            // ----------------------------------------------------------------
+            // Campos para compras — descomentar quando implementar checkout
+            // ----------------------------------------------------------------
+            // 'cpf'               => 'required|string|size:11|unique:users,cpf',
+            // 'dataNasc'          => 'required|date|before:-18 years',
+            // 'cep'               => 'required|string|size:8',
+            // 'logradouro'        => 'required|string|max:255',
+            // 'numero'            => 'required|string|max:20',
+            // 'complemento'       => 'nullable|string|max:100',
+            // 'bairro'            => 'required|string|max:100',
+            // 'cidade'            => 'required|string|max:100',
+            // 'estado'            => 'required|string|size:2',
+        ], [
+            'name.required'      => 'O nome é obrigatório.',
+            'email.required'     => 'O e-mail é obrigatório.',
+            'email.email'        => 'Informe um e-mail válido.',
+            'email.unique'       => 'Este e-mail já está cadastrado.',
+            'password.required'  => 'A senha é obrigatória.',
+            'password.min'       => 'A senha deve ter pelo menos 6 caracteres.',
+            'password.confirmed' => 'As senhas não conferem.',
+        ]);
+
+        User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'telefone' => $request->telefone,
+            'role'     => 'cliente',
+            'ativo'    => true,
+
+            // ----------------------------------------------------------------
+            // Campos para compras — descomentar quando implementar checkout
+            // ----------------------------------------------------------------
+            // 'cpf'          => $request->cpf,
+            // 'dataNasc'     => $request->dataNasc,
+            // 'cep'          => $request->cep,
+            // 'logradouro'   => $request->logradouro,
+            // 'numero'       => $request->numero,
+            // 'complemento'  => $request->complemento,
+            // 'bairro'       => $request->bairro,
+            // 'cidade'       => $request->cidade,
+            // 'estado'       => $request->estado,
+        ]);
+
+        return redirect()
+            ->route('auth.login')
+            ->with('success', 'Conta criada com sucesso! Faça login para continuar.');
     }
 
-    public function storeApi(Request $request)
-    {
-        $Cliente = new User();
-        $Cliente->nome = $request->input('nome');
-        $Cliente->email = $request->input('email');
-        $Cliente->dataNasc = $request->input('dataNasc');
-        $Cliente->password = $request->input('password');
-        $Cliente->save();
+    /*
+    |--------------------------------------------------------------------------
+    | API — Clientes
+    |--------------------------------------------------------------------------
+    */
 
-        // Resposta para a API
-    return response()->json([
-        'mensagem' => 'Usuário criado com sucesso!'
-    ]);
-}
-    
-    public function show($id)
+    public function indexApi(): JsonResponse
     {
-        //
+        $clientes = User::select('id', 'name', 'email', 'telefone', 'role', 'ativo', 'created_at')
+            ->orderBy('name')
+            ->get();
+
+        return response()->json($clientes);
     }
 
-    public function showApi($id)
+    public function showApi(int $id): JsonResponse
     {
-        $Cliente = User::find($id);
+        $cliente = User::findOrFail($id);
 
-        return response()->json($Cliente);
-        
+        return response()->json($cliente);
     }
 
-    
-    public function edit($id)
+    public function storeApi(Request $request): JsonResponse
     {
-        //
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:6',
+            'telefone' => 'nullable|string|max:20',
+
+            // ----------------------------------------------------------------
+            // Campos para compras — descomentar quando implementar checkout
+            // ----------------------------------------------------------------
+            // 'cpf'      => 'required|string|size:11|unique:users,cpf',
+            // 'dataNasc' => 'required|date',
+            // 'cep'      => 'required|string|size:8',
+        ]);
+
+        $cliente = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => Hash::make($request->password),
+            'telefone' => $request->telefone,
+            'role'     => 'cliente',
+            'ativo'    => true,
+        ]);
+
+        return response()->json([
+            'message' => 'Usuário criado com sucesso.',
+            'data'    => $cliente,
+        ], 201);
     }
 
-    
-    public function update(Request $request, $id)
+    public function updateApi(Request $request, int $id): JsonResponse
     {
-        //
-    }
+        $cliente = User::findOrFail($id);
 
-    public function updateApi(Request $request, $id)
-    {
-        // Encontrar o usuário pelo ID
-        $Cliente = User::find($id);
+        $request->validate([
+            'name'     => 'sometimes|string|max:255',
+            'email'    => 'sometimes|email|unique:users,email,' . $id,
+            'password' => 'sometimes|string|min:6',
+            'telefone' => 'nullable|string|max:20',
+        ]);
 
+        $cliente->fill($request->only(['name', 'email', 'telefone']));
 
-        if (!$Cliente) {
-            return response()->json(['mensagem' => 'Usuário não encontrado'], 404);
+        if ($request->filled('password')) {
+            $cliente->password = Hash::make($request->password);
         }
 
-        $Cliente->nome = $request->input('nome');
-        $Cliente->email = $request->input('email');
-        $Cliente->dataNasc = $request->input('dataNasc');
-        $Cliente->password = $request->input('password');
-        $Cliente->save();
+        $cliente->save();
 
-        // Resposta para a API
         return response()->json([
-            'mensagem' => 'Usuário atualizado com sucesso!'
+            'message' => 'Usuário atualizado com sucesso.',
+            'data'    => $cliente,
         ]);
     }
 
-    public function destroyApi($id)
-        {
-            $Cliente = User::find($id);
+    public function destroyApi(int $id): JsonResponse
+    {
+        $cliente = User::findOrFail($id);
+        $cliente->delete();
 
-            if ($Cliente) {
-                $Cliente->delete();
-                return response()->json(['mensagem' => 'Usuário deletado com sucesso!']);
-            }
-
-            return response()->json(['mensagem' => 'Usuário não encontrado'], 404);
-        }
+        return response()->json([
+            'message' => 'Usuário removido com sucesso.',
+        ]);
+    }
 }

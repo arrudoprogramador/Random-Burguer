@@ -11,7 +11,7 @@
 <section class="relative h-72 lg:h-96 flex items-end">
     <div class="absolute inset-0 z-0">
         <img
-            src="{{ asset('img/bg 9.jpg') }}"
+            src="{{ asset('/img/bg (1).jpg') }}"
             alt="Cardápio background"
             class="w-full h-full object-cover object-center"
             onerror="this.src='https://placehold.co/1600x400/111111/F59E0B?text=Cardápio'"
@@ -37,7 +37,7 @@
         <div class="flex flex-col sm:flex-row items-center gap-3">
 
             {{-- Busca --}}
-            <form method="GET" action="{{ route('pesquisar.lanches') }}" class="flex-1 w-full">
+            <form method="GET" action="{{ route('lanches.busca') }}" class="flex-1 w-full">
                 <div class="relative">
                     <i class="bi bi-search absolute left-4 top-1/2 -translate-y-1/2 text-white/30 text-sm"></i>
                     <input
@@ -94,14 +94,14 @@
             {{-- Grid --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach($lanches as $l)
-                    <a href="{{ route('lanche.show', ['id' => $l->id]) }}"
+                    <a href="{{ route('lanches.show', ['id' => $l->id]) }}"
                        class="group relative bg-surface-card rounded-2xl overflow-hidden border border-white/5 hover:border-brand/30 transition-all duration-300 hover:-translate-y-1 hover:shadow-2xl hover:shadow-brand/10 flex flex-col">
 
                         {{-- Imagem --}}
                         <div class="relative h-52 overflow-hidden bg-surface-muted">
                             <img
-                                src="{{ url('/img/lanches/' . $l->fotoLanche) }}"
-                                alt="{{ $l->nomeLanche }}"
+                                src="{{ url('/img/lanches/' . $l->imagem) }}"
+                                alt="{{ $l->nome }}"
                                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                                 onerror="this.src='https://placehold.co/400x300/1A1A1A/F59E0B?text=Burguer'"
                             />
@@ -111,12 +111,12 @@
                         {{-- Info --}}
                         <div class="p-5 flex flex-col flex-1">
                             <h3 class="font-display text-lg text-white font-bold leading-tight mb-1">
-                                {{ $l->nomeLanche }}
+                                {{ $l->nome }}
                             </h3>
 
-                            @if(isset($l->descLanche) && $l->descLanche)
+                            @if(isset($l->descricao) && $l->descricao)
                                 <p class="text-sm text-white/40 line-clamp-2 mb-4 leading-relaxed flex-1">
-                                    {{ $l->descLanche }}
+                                    {{ $l->descricao }}
                                 </p>
                             @else
                                 <div class="flex-1"></div>
@@ -124,7 +124,7 @@
 
                             <div class="flex items-center justify-between mt-4 pt-4 border-t border-white/5">
                                 <span class="text-brand font-bold text-xl">
-                                    R$ {{ number_format($l->valorLanche, 2, ',', '.') }}
+                                    R$ {{ number_format($l->preco, 2, ',', '.') }}
                                 </span>
                                 <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand/10 text-brand border border-brand/20 text-sm font-semibold group-hover:bg-brand group-hover:text-black transition-all duration-200">
                                     <i class="bi bi-plus-lg text-base"></i>
@@ -153,7 +153,7 @@
                     @endif
                 </p>
                 @if(request('pesquisar'))
-                    <a href="{{ route('areaUser.lanches') }}"
+                    <a href="{{ route('lanches.index') }}"
                        class="inline-flex items-center gap-2 px-6 py-3 rounded-full border border-brand/30 text-brand text-sm font-medium hover:bg-brand hover:text-black transition-all">
                         <i class="bi bi-arrow-left"></i>
                         Ver todos os lanches

@@ -28,7 +28,7 @@
         <div class="flex justify-center items-center w-full p-3">
         <div class="max-w-4xl w-full bg-white p-6 rounded-lg shadow-md">
         <!-- Alteração do método para PUT (atualizar) -->
-        <form method="post" action="{{ route('lanche.update', $lanche->id) }}" enctype="multipart/form-data">
+        <form method="post" action="{{ route('admin.lanche.update', $lanche->id) }}" enctype="multipart/form-data">
         @csrf
         @method('PUT')
                 
@@ -39,9 +39,9 @@
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                     <div class="flex flex-col items-center">
                         <!-- Exibe a imagem atual do lanche ou a imagem padrão -->
-                        <img id="preview" src="{{ $lanche->fotoLanche ? url('img/lanches/' . $lanche->fotoLanche) : url('/img/sub2.jpg') }}" alt="Imagem do produto" class="rounded-lg w-full h-48 object-cover border border-gray-300">
-                        <label for="fotoLanche" class="btn btn-light mt-2">Carregar Imagem</label>
-                        <input type="file" id="fotoLanche" name="fotoLanche" accept="image/*" class="hidden">
+                        <img id="preview" src="{{ $lanche->imagem ? url('img/lanches/' . $lanche->imagem) : url('/img/sub2.jpg') }}" alt="Imagem do produto" class="rounded-lg w-full h-48 object-cover border border-gray-300">
+                        <label for="imagem" class="btn btn-light mt-2">Carregar Imagem</label>
+                        <input type="file" id="imagem" name="imagem" accept="image/*" class="hidden">
                     </div>
                     <div class="md:col-span-2">
                         <div class="mb-3">
@@ -55,9 +55,9 @@
                             <textarea class="form-control" name="descricao" id="descricao">{{ old('descricao', $lanche->descricao) }}</textarea>
                         </div>
                         <div class="mb-3">
-                            <label for="valorLanche" class="form-label">Preço:</label>
+                            <label for="preco" class="form-label">Preço:</label>
                             <!-- Preenche o preço do lanche no campo de entrada -->
-                            <input type="text" class="form-control" step="0.01" min="0" name="valorLanche" id="valorLanche" value="{{ old('valorLanche', $lanche->valorLanche) }}" placeholder="Ex: 12.5" required>
+                            <input type="text" class="form-control" step="0.01" min="0" name="preco" id="preco" value="{{ old('preco', $lanche->preco) }}" placeholder="Ex: 12.5" required>
                         </div>
                     </div>
                 </div>

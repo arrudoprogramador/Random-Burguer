@@ -1,72 +1,119 @@
 <?php
+
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-
 
 class AuthController extends Controller
 {
+    /*
+    |--------------------------------------------------------------------------
+    | AUTENTICAÇÃO WEB
+    |--------------------------------------------------------------------------
+    */
+
     public function index()
     {
-        return view('/areaUser/login');
+        if (Auth::check()) {
+            return redirect()->route('home');
+        }
+
+        return view('areaUser.login');
     }
 
     public function store(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required'
-    ],[
-        'email.required' => 'O campo de email é obrigatório.',
-        'email.email' => 'O email informado não é válido.',
-        'password.required' => 'O campo de senha é obrigatório.',
-    ]);
+    {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|string',
+        ], [
+            'email.required'    => 'O campo de e-mail é obrigatório.',
+            'email.email'       => 'Informe um e-mail válido.',
+            'password.required' => 'O campo de senha é obrigatório.',
+        ]);
 
-    $credentials = $request->only('email', 'password');
+        
+        if (!Auth::attempt($request->only('email', 'password'), $request->boolean('remember'))) {
+            return back()
+                ->withInput($request->only('email'))
+                ->withErrors(['email' => 'E-mail ou senha inválidos.']);
+        }
 
-    if (!Auth::attempt($credentials)) {
-        return redirect()->route('login.index')->withErrors(['error' => 'Email ou senha inválidos']);
+        $request->session()->regenerate();
+
+        return redirect()
+            ->intended(route('home'))
+            ->with('success', 'Bem-vindo de volta, ' . Auth::user()->name . '!');
     }
 
-    return view('/areaUser/index')->with('success', 'Login realizado com sucesso!');
-}
-
-
-    public function destroy()
+    public function destroy(Request $request)
     {
         Auth::logout();
-        return view('/areaUser/index')->with('sucess', 'Deslogged');
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect()->route('home');
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | AUTENTICAÇÃO API (Sanctum)
+    |--------------------------------------------------------------------------
+    */
 
-    public function loginApi(Request $request)
-        {
-            // Validar os dados
-            $validator = Validator::make($request->all(), [
-                'email' => 'required|email',
-                'password' => 'required',
-            ]);
+    public function loginApi(Request $request): JsonResponse
+    {
+        $request->validate([
+            'email'    => 'required|email',
+            'password' => 'required|string',
+        ]);
 
-            if ($validator->fails()) {
-                return response()->json(['error' => $validator->errors()], 400);
-            }
+        $user = User::where('email', $request->email)->first();
 
-            // Buscar usuário
-            $Cliente = User::where('email', $request->email)->first();
-
-            if (!$Cliente || !Hash::check($request->password, $Cliente->password)) {
-                return response()->json(['error' => 'Credenciais inválidas'], 401);
-            }
-
-            // Gerar um token fake só pra teste
+        if (!$user || !Hash::check($request->password, $user->password)) {
             return response()->json([
-                'message' => 'Login bem-sucedido',
-                'usuario' => $Cliente,
-                'token' => base64_encode($Cliente->email . now()) // só pra simular
-            ], 200);
+                'message' => 'Credenciais inválidas.',
+            ], 401);
         }
+
+        if (!$user->ativo) {
+            return response()->json([
+                'message' => 'Conta desativada. Entre em contato com o suporte.',
+            ], 403);
+        }
+
+        // Revoga tokens anteriores e emite novo token
+        $user->tokens()->delete();
+
+        $token = $user->createToken(
+            'api-token',
+            ['*'],                      // abilities — restringir quando necessário
+            now()->addDays(30)          // expiração em 30 dias
+        )->plainTextToken;
+
+        return response()->json([
+            'message' => 'Login realizado com sucesso.',
+            'data'    => [
+                'id'    => $user->id,
+                'name'  => $user->name,
+                'email' => $user->email,
+                'role'  => $user->role,
+            ],
+            'token' => $token,
+        ]);
+    }
+
+    public function logoutApi(Request $request): JsonResponse
+    {
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Logout realizado com sucesso.',
+        ]);
+    }
 }

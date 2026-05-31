@@ -1,78 +1,146 @@
 <?php
+
 namespace App\Http\Controllers;
-use Illuminate\Http\Request;
+
 use App\Models\Lanche;
+use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\View\View;
 
 class CartController extends Controller
 {
-    public function adicionarAoCarrinho(Request $request, $id)
+    private const SESSION_KEY = 'carrinho';
+    private const MAX_QUANTIDADE = 20;
+
+    /*
+    |--------------------------------------------------------------------------
+    | VISUALIZAR
+    |--------------------------------------------------------------------------
+    */
+
+    public function visualizarCarrinho(): View
     {
-        $lanche = Lanche::findOrFail($id);
-        $carrinho = session()->get('carrinho', []);
+        $carrinho = $this->getCarrinho();
+
+        return view('areaUser.carrinho', compact('carrinho'));
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ADICIONAR
+    |--------------------------------------------------------------------------
+    */
+
+    public function adicionarAoCarrinho(Request $request, int $id): RedirectResponse
+    {
+        $lanche   = Lanche::findOrFail($id);
+        $carrinho = $this->getCarrinho();
 
         if (isset($carrinho[$id])) {
-            $carrinho[$id]['quantidade']++;
+            $novaQtd = $carrinho[$id]['quantidade'] + ($request->input('quantidade', 1));
+            $carrinho[$id]['quantidade'] = min($novaQtd, self::MAX_QUANTIDADE);
         } else {
             $carrinho[$id] = [
-                'nome' => $lanche->nomeLanche,
-                'preco' => $lanche->valorLanche,
-                'quantidade' => 1,
-                'imagem' => $lanche->fotoLanche
+                'nome'       => $lanche->nome,
+                'preco'      => $lanche->preco,
+                'quantidade' => min((int) $request->input('quantidade', 1), self::MAX_QUANTIDADE),
+                'imagem'     => $lanche->imagem,
             ];
         }
 
-        session()->put('carrinho', $carrinho);
-        return redirect()->back()->with('success', 'Lanche adicionado ao carrinho!');
+        $this->saveCarrinho($carrinho);
+
+        return redirect()
+            ->back()
+            ->with('success', "\"{$lanche->nome}\" adicionado ao carrinho!");
     }
 
+    /*
+    |--------------------------------------------------------------------------
+    | ATUALIZAR QUANTIDADE
+    |--------------------------------------------------------------------------
+    */
 
-    public function atualizar(Request $request, $id)
+    public function atualizar(Request $request, int $id): RedirectResponse
     {
-        // Valida a quantidade enviada pelo formulário
         $request->validate([
-            'quantidade' => 'required|integer|min:1'
+            'quantidade' => "required|integer|min:1|max:" . self::MAX_QUANTIDADE,
+        ], [
+            'quantidade.required' => 'Informe a quantidade.',
+            'quantidade.integer'  => 'A quantidade deve ser um número inteiro.',
+            'quantidade.min'      => 'A quantidade mínima é 1.',
+            'quantidade.max'      => 'A quantidade máxima é ' . self::MAX_QUANTIDADE . '.',
         ]);
-    
-        // Obtém o carrinho da sessão
-        $carrinho = session()->get('carrinho');
-    
-        // Verifica se o item existe no carrinho
-        if (isset($carrinho[$id])) {
-            // Atualiza a quantidade do item
-            $carrinho[$id]['quantidade'] = $request->quantidade;
-    
-            // Atualiza a sessão do carrinho
-            session()->put('carrinho', $carrinho);
-    
-            return redirect()->route('carrinho.visualizar')->with('success', 'Quantidade atualizada!');
-        }
-    
-        return redirect()->route('carrinho.index')->with('error', 'Item não encontrado no carrinho.');
-    }
-    
 
+        $carrinho = $this->getCarrinho();
 
-    public function visualizarCarrinho()
-    {
-        $carrinho = session()->get('carrinho', []);
-        return view('/areaUser/carrinho', compact('carrinho'));
-    }
-
-    public function removerDoCarrinho($id)
-    {
-        $carrinho = session()->get('carrinho', []);
-
-        if (isset($carrinho[$id])) {
-            unset($carrinho[$id]);
-            session()->put('carrinho', $carrinho);
+        if (!isset($carrinho[$id])) {
+            return redirect()
+                ->route('carrinho.index')
+                ->with('error', 'Item não encontrado no carrinho.');
         }
 
-        return redirect()->back()->with('success', 'Lanche removido do carrinho!');
+        $carrinho[$id]['quantidade'] = (int) $request->quantidade;
+        $this->saveCarrinho($carrinho);
+
+        return redirect()
+            ->route('carrinho.index')
+            ->with('success', 'Quantidade atualizada!');
     }
 
-    public function limparCarrinho()
+    /*
+    |--------------------------------------------------------------------------
+    | REMOVER ITEM
+    |--------------------------------------------------------------------------
+    */
+
+    public function removerDoCarrinho(int $id): RedirectResponse
     {
-        session()->forget('carrinho');
-        return redirect()->back()->with('success', 'Carrinho esvaziado!');
+        $carrinho = $this->getCarrinho();
+
+        if (!isset($carrinho[$id])) {
+            return redirect()
+                ->route('carrinho.index')
+                ->with('error', 'Item não encontrado no carrinho.');
+        }
+
+        $nome = $carrinho[$id]['nome'];
+        unset($carrinho[$id]);
+        $this->saveCarrinho($carrinho);
+
+        return redirect()
+            ->back()
+            ->with('success', "\"{$nome}\" removido do carrinho.");
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | LIMPAR CARRINHO
+    |--------------------------------------------------------------------------
+    */
+
+    public function limparCarrinho(): RedirectResponse
+    {
+        session()->forget(self::SESSION_KEY);
+
+        return redirect()
+            ->route('carrinho.index')
+            ->with('success', 'Carrinho esvaziado.');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | HELPERS PRIVADOS
+    |--------------------------------------------------------------------------
+    */
+
+    private function getCarrinho(): array
+    {
+        return session()->get(self::SESSION_KEY, []);
+    }
+
+    private function saveCarrinho(array $carrinho): void
+    {
+        session()->put(self::SESSION_KEY, $carrinho);
     }
 }

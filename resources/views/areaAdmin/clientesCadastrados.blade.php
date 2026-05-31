@@ -28,7 +28,7 @@
             <h1 class="mb-4 text-3xl font-semibold">Lista de Clientes Cadastrados</h1>
 
             <!-- Formulário de Pesquisa -->
-            <form method="GET" action="{{ route('pesquisar.clientes') }}" class="mb-4 d-flex">
+            <form method="GET" action="{{ route('admin.clientes.busca') }}" class="mb-4 d-flex">
                 <input type="text" name="pesquisar" placeholder="Pesquisar por ID, nome ou email" value="{{ request('pesquisar') }}" class="form-control me-2" style="width: 300px;">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
             </form>
@@ -54,7 +54,7 @@
                                     <td>{{ $c->email }}</td>
                                     <td>{{ $c->dataNasc }}</td>
                                     <td>
-                                    <form action="{{ route('cliente.destroy', $c->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
+                                    <form action="{{ route('admin.clientes.destroy', $c->id) }}" method="POST" onsubmit="return confirm('Tem certeza que deseja excluir este cliente?');">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800">Excluir</button>

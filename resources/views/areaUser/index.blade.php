@@ -48,7 +48,7 @@
 
             {{-- CTAs --}}
             <div class="opacity-0-init animate-fade-up-3 flex flex-col sm:flex-row gap-4">
-                <a href="{{ route('areaUser.lanches') }}"
+                <a href="{{ route('lanches.index') }}"
                    class="inline-flex items-center justify-center gap-2.5 px-8 py-4 rounded-full bg-brand text-black font-semibold text-base hover:bg-brand-light transition-all shadow-xl shadow-brand/30 hover:shadow-brand/50 hover:-translate-y-0.5 active:scale-95">
                     <i class="bi bi-bag-fill text-lg"></i>
                     Ver Cardápio
@@ -109,7 +109,7 @@
                     Lanches <span class="italic text-brand">Favoritos</span>
                 </h2>
             </div>
-            <a href="{{ route('areaUser.lanches') }}"
+            <a href="{{ route('lanches.index') }}"
                class="self-start md:self-auto inline-flex items-center gap-2 text-sm text-brand border border-brand/30 px-5 py-2.5 rounded-full hover:bg-brand hover:text-black transition-all font-medium">
                 Ver todos
                 <i class="bi bi-arrow-right"></i>
@@ -299,7 +299,7 @@
         <p class="text-black/60 text-lg mb-8">
             Após fazer seu pedido, deixe sua avaliação. Sua opinião é muito importante para nós.
         </p>
-        <a href="{{ route('login.index') }}"
+        <a href="{{ route('auth.login') }}"
            class="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-black text-brand font-semibold hover:bg-surface transition-all shadow-xl shadow-black/30 text-base hover:-translate-y-0.5 active:scale-95">
             <i class="bi bi-star-fill"></i>
             Cadastre-se e avalie

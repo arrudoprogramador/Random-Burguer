@@ -1,73 +1,12 @@
-{{-- resources/views/components/navbar.blade.php --}}
-<header
-    x-data="{ scrolled: false, mobileOpen: false }"
-    x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })"
-    :class="scrolled ? 'bg-surface/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'"
-    class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
->
-    <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="flex items-center justify-between h-20">
-
-            {{-- Logo --}}
-            <a href="/" class="flex items-center gap-2 group">
-                <div class="w-9 h-9 rounded-full bg-brand flex items-center justify-center shadow-md shadow-brand/30 group-hover:scale-110 transition-transform">
-                    <i class="bi bi-fire text-black text-lg"></i>
-                </div>
-                <span class="font-display text-xl text-white tracking-tight">
-                    Random<span class="text-brand">Burguer</span>
-                </span>
-            </a>
-
-            {{-- Nav Desktop --}}
-            <nav class="hidden md:flex items-center gap-8">
-                <a href="#menu"       class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Cardápio</a>
-                <a href="#favoritos"  class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Favoritos</a>
-                <a href="#about"      class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Sobre</a>
-                <a href="#address"    class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Localização</a>
-            </nav>
-
-            {{-- Ações Desktop --}}
-            <div class="hidden md:flex items-center gap-3">
-                <a href="{{ route('carrinho.visualizar') }}" class="relative text-white/70 hover:text-brand transition-colors p-2">
-                    <i class="bi bi-bag text-xl"></i>
-                    {{-- Badge carrinho (opcional via session) --}}
-                    @if(session('cart') && count(session('cart')) > 0)
-                        <span class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-brand text-black text-[10px] font-bold flex items-center justify-center">
-                            {{ count(session('cart')) }}
-                        </span>
-                    @endif
-                </a>
-                <a href="{{ route('login.index') }}"
-                   class="px-5 py-2 rounded-full bg-brand text-black text-sm font-semibold hover:bg-brand-light transition-all shadow-md shadow-brand/20 hover:shadow-brand/40">
-                    Entrar
-                </a>
-            </div>
-
-            {{-- Botão Mobile --}}
-            <button @click="mobileOpen = !mobileOpen" class="md:hidden text-white p-2">
-                <i :class="mobileOpen ? 'bi-x-lg' : 'bi-list'" class="bi text-2xl"></i>
-            </button>
-
-        </div>
-    </div>
-
-    {{-- Menu Mobile --}}
-    <div
-        x-show="mobileOpen"
-        x-transition:enter="transition ease-out duration-200"
-        x-transition:enter-start="opacity-0 -translate-y-4"
-        x-transition:enter-end="opacity-100 translate-y-0"
-        x-transition:leave="transition ease-in duration-150"
-        x-transition:leave-start="opacity-100"
-        x-transition:leave-end="opacity-0"
-        class="md:hidden bg-surface/98 backdrop-blur-lg border-t border-white/5 px-6 py-6 flex flex-col gap-4"
-    >
-        <a @click="mobileOpen=false" href="#menu"      class="text-white/80 hover:text-brand py-2 border-b border-white/5">Cardápio</a>
-        <a @click="mobileOpen=false" href="#favoritos" class="text-white/80 hover:text-brand py-2 border-b border-white/5">Favoritos</a>
-        <a @click="mobileOpen=false" href="#about"     class="text-white/80 hover:text-brand py-2 border-b border-white/5">Sobre</a>
-        <a @click="mobileOpen=false" href="#address"   class="text-white/80 hover:text-brand py-2 border-b border-white/5">Localização</a>
-        <a href="{{ route('login.index') }}" class="mt-2 w-full text-center px-5 py-3 rounded-full bg-brand text-black font-semibold hover:bg-brand-light transition-all">
-            Entrar
-        </a>
-    </div>
-</header>
+{{-- resources/views/components/navbar.blade.php --}} <header x-data="{ scrolled: false, mobileOpen: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 40 })" :class="scrolled ? 'bg-surface/95 backdrop-blur-md shadow-lg shadow-black/40' : 'bg-transparent'" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" > <div class="max-w-7xl mx-auto px-6 lg:px-10"> <div class="flex items-center justify-between h-20"> {{-- Logo --}} <a href="/" class="flex items-center gap-2 group"> 
+    <div class="w-9 h-9 rounded-full bg-brand flex items-center justify-center shadow-md shadow-brand/30 group-hover:scale-110 transition-transform"> 
+    <i class="bi bi-fire text-black text-lg"></i> 
+</div> 
+<span class="font-display text-xl text-white tracking-tight"> Random<span class="text-brand">Burguer</span> </span> </a> {{-- Nav Desktop --}} <nav class="hidden md:flex items-center gap-8"> <a href="{{ route('lanches.index') }}" class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Cardápio</a> <a href="{{ route('home') }}#favoritos" class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Favoritos</a> <a href="{{ route('home') }}#about" class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Sobre</a> <a href="{{ route('home') }}#address" class="text-sm font-medium text-white/70 hover:text-brand transition-colors tracking-wide">Localização</a> </nav> {{-- Ações Desktop --}} <div class="hidden md:flex items-center gap-3"> 
+    <a href="{{ route('carrinho.index') }}" class="relative text-white/70 hover:text-brand transition-colors p-2"> 
+    <i class="bi bi-bag text-xl"></i> {{-- Badge carrinho (opcional via session) --}} @if(session('cart') && count(session('cart')) > 0) 
+<span class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-brand text-black text-[10px] font-bold flex items-center justify-center"> {{ count(session('cart')) }} </span> @endif </a> @auth {{-- Logado --}} <span class="text-sm text-white/50">Olá, {{ auth()->user()->name }}</span> <form action="{{ route('auth.logout') }}" method="POST"> @csrf <button type="submit" class="px-5 py-2 rounded-full border border-white/10 text-white/60 text-sm font-medium hover:text-brand hover:border-brand/30 transition-all"> Sair </button> </form> @else {{-- Não logado --}} <a href="{{ route('auth.login') }}" class="px-5 py-2 rounded-full bg-brand text-black text-sm font-semibold hover:bg-brand-light transition-all shadow-md shadow-brand/20 hover:shadow-brand/40"> Entrar </a> @endauth </div> {{-- Botão Mobile --}} 
+<button @click="mobileOpen = !mobileOpen" class="md:hidden text-white p-2"> <i :class="mobileOpen ? 'bi-x-lg' : 'bi-list'" class="bi text-2xl"></i> </button> </div> </div> {{-- Menu Mobile --}} 
+<div x-show="mobileOpen" x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0" x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0" class="md:hidden bg-surface/98 backdrop-blur-lg border-t border-white/5 px-6 py-6 flex flex-col gap-4" > <a @click="mobileOpen=false" href="{{ route('lanches.index') }}" class="...">Cardápio</a> 
+<a @click="mobileOpen=false" href="{{ route('home') }}#favoritos" class="...">Favoritos</a> <a @click="mobileOpen=false" href="{{ route('home') }}#about" class="...">Sobre</a> 
+<a @click="mobileOpen=false" href="{{ route('home') }}#address" class="...">Localização</a> <a href="{{ route('auth.login') }}" class="mt-2 w-full text-center px-5 py-3 rounded-full bg-brand text-black font-semibold hover:bg-brand-light transition-all"> Entrar </a> </div> </header>

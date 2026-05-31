@@ -5,18 +5,34 @@ use App\Http\Controllers\ControllerCliente;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/contas', [ControllerCliente::class, 'indexApi']);
-Route::get('/conta/{id}', [ControllerCliente::class, 'showApi']);
+/*
+|--------------------------------------------------------------------------
+| ROTAS PÚBLICAS — Autenticação
+|--------------------------------------------------------------------------
+*/
 
-Route::post('/conta/adicionar',[ControllerCliente::class, 'storeApi']);
+Route::prefix('auth')->name('api.auth.')->group(function () {
+    Route::post('/login',    [AuthController::class,    'loginApi'])->middleware('throttle:10,1')->name('login');
+    Route::post('/cadastro', [ControllerCliente::class, 'storeApi'])->middleware('throttle:5,1')->name('cadastro');
+});
 
-Route::delete('/conta/excluir/{id}',[ControllerCliente::class, 'destroyApi']);
+/*
+|--------------------------------------------------------------------------
+| ROTAS AUTENTICADAS — Sanctum
+|--------------------------------------------------------------------------
+*/
 
-Route::put('/conta/atualizar/{id}',[ControllerCliente::class, 'updateApi']);
+Route::middleware('auth:sanctum')->group(function () {
 
-Route::post('login', [AuthController::class, 'loginApi']);
+    // Usuário autenticado
+    Route::get('/me',      fn(Request $r) => response()->json($r->user()))->name('api.me');
+    Route::post('/logout', [AuthController::class, 'logoutApi'])->name('api.auth.logout');
 
-
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+    // Clientes (admin)
+    Route::prefix('clientes')->name('api.clientes.')->group(function () {
+        Route::get('/',        [ControllerCliente::class, 'indexApi'])->name('index');
+        Route::get('/{id}',    [ControllerCliente::class, 'showApi'])->name('show')->whereNumber('id');
+        Route::patch('/{id}',  [ControllerCliente::class, 'updateApi'])->name('update')->whereNumber('id');
+        Route::delete('/{id}', [ControllerCliente::class, 'destroyApi'])->name('destroy')->whereNumber('id');
+    });
 });

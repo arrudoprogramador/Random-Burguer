@@ -38,6 +38,7 @@
                         </p>
                         <form action="{{ route('carrinho.limpar') }}" method="POST">
                             @csrf
+                            @method('DELETE') 
                             <button type="submit"
                                     class="text-xs text-white/30 hover:text-red-400 transition-colors flex items-center gap-1.5">
                                 <i class="bi bi-trash3"></i>

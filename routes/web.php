@@ -86,7 +86,7 @@ Route::middleware(['auth', 'admin'])->prefix('admin')->name('admin.')->group(fun
     });
 
     // Pedidos
-    Route::get('/pedidos', fn() => view('areaAdmin.pedidos'))->name('pedidos');
+    Route::get('/pedidos', fn() => view('areaAdmin.pedidos.pedidos'))->name('pedidos');
 
     // Configurações
     Route::get('/config', fn() => view('areaAdmin.config'))->name('config');

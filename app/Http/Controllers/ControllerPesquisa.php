@@ -14,10 +14,9 @@ class ControllerPesquisa extends Controller
 
         $lanches = Lanche::where('nome', 'like', '%'.$query.'%')
         ->orWhere('descricao', 'like', '%'.$query.'%')
-        ->orWhere('preco', 'like', '%'.$query.'%')
         ->get();
 
-        return view('lanches.index', compact('lanches'));
+        return view('areaUser.lanches', compact('lanches'));
     }
 
     public function pesquisarLanches2(Request $request)

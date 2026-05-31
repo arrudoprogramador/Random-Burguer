@@ -10,7 +10,7 @@
     {{-- Lado esquerdo — imagem --}}
     <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img
-            src="{{ url('img/fundo.jpg') }}"
+            src="{{ url('img/bg (2).jpg') }}"
             alt="RandomBurguer"
             class="w-full h-full object-cover"
             onerror="this.src='https://placehold.co/800x1000/111111/F59E0B?text=🍔'"

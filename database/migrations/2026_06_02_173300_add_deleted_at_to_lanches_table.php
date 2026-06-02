@@ -26,7 +26,7 @@ return new class extends Migration
     public function down()
     {
         Schema::table('lanches', function (Blueprint $table) {
-            //
+            $table->dropSoftDeletes();
         });
     }
 };

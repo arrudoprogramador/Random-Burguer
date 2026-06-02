@@ -64,6 +64,8 @@ RUN composer install \
     --no-interaction \
     --prefer-dist
 
+RUN php artisan about || true
+
 # Permissões corretas
 RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 755 /var/www/html/storage \

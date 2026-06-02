@@ -1,0 +1,99 @@
+services:
+
+  # =====================================================
+  # Aplicação Laravel
+  # =====================================================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: app
+    container_name: randomburguer_app
+    restart: unless-stopped
+    ports:
+      - "8000:80"
+    environment:
+      APP_ENV: local
+      APP_DEBUG: true
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: mysql
+      DB_PORT: 3306
+      DB_DATABASE: randomburguer
+      DB_USERNAME: laravel
+      DB_PASSWORD: laravel
+    volumes:
+      - .:/var/www/html
+      - /var/www/html/vendor
+      - /var/www/html/node_modules
+      - storage_data:/var/www/html/storage
+    depends_on:
+      mysql:
+        condition: service_healthy
+    networks:
+      - randomburguer
+
+  # =====================================================
+  # MySQL
+  # =====================================================
+  mysql:
+    image: mysql:8.0
+    container_name: randomburguer_mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: randomburguer
+      MYSQL_USER: laravel
+      MYSQL_PASSWORD: laravel
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "laravel", "-plaravel"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - randomburguer
+
+  # =====================================================
+  # Redis (cache e sessões)
+  # =====================================================
+  redis:
+    image: redis:7-alpine
+    container_name: randomburguer_redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - randomburguer
+
+  # =====================================================
+  # PhpMyAdmin (gerenciador visual do banco)
+  # =====================================================
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: randomburguer_pma
+    restart: unless-stopped
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: laravel
+      PMA_PASSWORD: laravel
+    depends_on:
+      - mysql
+    networks:
+      - randomburguer
+
+volumes:
+  mysql_data:
+  redis_data:
+  storage_data:
+
+networks:
+  randomburguer:
+    driver: bridge

@@ -53,6 +53,25 @@
             @error('descricao') <p class="text-red-400 text-xs">{{ $message }}</p> @enderror
         </div>
 
+
+        {{-- Categoria --}}
+        <div class="flex flex-col gap-1.5">
+            <label class="text-xs text-white/40 uppercase tracking-widest font-medium">
+                Selecionar categoria
+            </label>
+            <select name="categoria_id"
+                    class="bg-[#252525] border @error('categoria_id') border-red-500/50 @else border-white/10 @enderror rounded-xl px-4 py-3 text-sm text-white placeholder-white/25 focus:outline-none focus:border-brand/50 transition-all">
+                <option value="" disabled selected>Selecione uma categoria...</option>
+                @foreach($categorias as $categoria)
+                    <option value="{{ $categoria->id }}"
+                        {{ old('categoria_id', $lanche->categoria_id ?? '') == $categoria->id ? 'selected' : '' }}>
+                        {{ $categoria->nome }}
+                    </option>
+                @endforeach
+            </select>
+            @error('categoria_id') <p class="text-red-400 text-xs">{{ $message }}</p> @enderror
+        </div>
+
         {{-- Preço + Estoque --}}
         <div class="grid grid-cols-2 gap-4">
             <div class="flex flex-col gap-1.5">

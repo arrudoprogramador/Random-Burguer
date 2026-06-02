@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lanche;
+use App\Models\Categoria;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ControllerLanches extends Controller
 {
@@ -50,7 +52,9 @@ class ControllerLanches extends Controller
 
     public function create()
     {
-        return view('areaAdmin.lanches.registerLanche');
+        $categorias = Categoria::orderBy('nome')->get();
+
+        return view('areaAdmin.lanches.registerLanche', compact('categorias'));
     }
 
     public function store(Request $request)
@@ -58,6 +62,7 @@ class ControllerLanches extends Controller
         $request->validate([
             'nome'      => 'required|string|max:255',
             'descricao' => 'nullable|string|max:1000',
+            'categoria_id' => 'required|exists:categorias,id',
             'preco'     => 'required|numeric|min:0',
             'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -65,6 +70,8 @@ class ControllerLanches extends Controller
             'preco.required' => 'O preço é obrigatório.',
             'preco.numeric'  => 'O preço deve ser um valor numérico.',
             'preco.min'      => 'O preço não pode ser negativo.',
+            'categoria_id.required' => 'Selecione uma categoria.', 
+            'categoria_id.exists'   => 'Categoria inválida.', 
             'imagem.image'   => 'O arquivo deve ser uma imagem.',
             'imagem.max'     => 'A imagem não pode ultrapassar 2MB.',
         ]);
@@ -72,7 +79,8 @@ class ControllerLanches extends Controller
         $lanche = Lanche::create([
             'nome'      => $request->nome,
             'descricao' => $request->descricao,
-            'preco'     => $request->preco,
+            'categoria_id' => $request->categoria_id,
+            'slug' => Str::slug($request->nome) . '-' . uniqid(),            'preco'     => $request->preco,
             'imagem'    => $this->handleImageUpload($request),
         ]);
 
@@ -83,9 +91,10 @@ class ControllerLanches extends Controller
 
     public function edit(int $id)
     {
+        $categorias = Categoria::orderBy('nome')->get();
         $lanche = Lanche::findOrFail($id);
 
-        return view('areaAdmin.lanches.editLanche', compact('lanche'));
+        return view('areaAdmin.lanches.editLanche', compact('lanche','categorias'));
     }
 
     public function update(Request $request, int $id)
@@ -95,6 +104,7 @@ class ControllerLanches extends Controller
         $request->validate([
             'nome'      => 'required|string|max:255',
             'descricao' => 'nullable|string|max:1000',
+            'categoria_id' => 'required|exists:categorias,id',
             'preco'     => 'required|numeric|min:0',
             'imagem'    => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ], [
@@ -102,12 +112,15 @@ class ControllerLanches extends Controller
             'preco.required' => 'O preço é obrigatório.',
             'preco.numeric'  => 'O preço deve ser um valor numérico.',
             'preco.min'      => 'O preço não pode ser negativo.',
+            'categoria_id.required' => 'Selecione uma categoria.',  // <-- adicionado
+            'categoria_id.exists'   => 'Categoria inválida.', 
             'imagem.image'   => 'O arquivo deve ser uma imagem.',
             'imagem.max'     => 'A imagem não pode ultrapassar 2MB.',
         ]);
 
         $lanche->nome      = $request->nome;
         $lanche->descricao = $request->descricao;
+        $lanche->categoria_id = $request->categoria_id;
         $lanche->preco     = $request->preco;
 
         $novaImagem = $this->handleImageUpload($request);

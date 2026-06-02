@@ -74,6 +74,8 @@ COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/php.ini $PHP_INI_DIR/conf.d/custom.ini
 COPY docker/supervisord.conf /etc/supervisord.conf
 
+RUN php-fpm -tt
+
 EXPOSE 80
 
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

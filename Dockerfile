@@ -80,4 +80,6 @@ RUN php-fpm -tt
 
 EXPOSE 80
 
+RUN apk add --no-cache net-tools
+
 CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]

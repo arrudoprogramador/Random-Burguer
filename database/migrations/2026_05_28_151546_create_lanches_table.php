@@ -6,24 +6,24 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('lanches', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('categoria_id')->constrained('categorias')->onDelete('cascade');
+            $table->string('nome', 150);
+            $table->string('slug', 180)->unique();
+            $table->text('descricao');
+            $table->string('imagem')->nullable();
+            $table->decimal('preco', 10, 2);
+            $table->integer('estoque')->default(0);
+            $table->boolean('destaque')->default(false);
+            $table->boolean('ativo')->default(true);
             $table->timestamps();
+            $table->softDeletes(); // adiciona deleted_at
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('lanches');

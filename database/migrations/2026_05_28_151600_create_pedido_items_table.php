@@ -6,26 +6,22 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
-        Schema::create('pedido_items', function (Blueprint $table) {
+        Schema::create('pedido_itens', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('pedido_id')->constrained('pedidos')->onDelete('cascade');
+            $table->foreignId('lanche_id')->constrained('lanches')->onDelete('cascade');
+            $table->integer('quantidade')->default(1);
+            $table->decimal('preco_unitario', 10, 2);
+            $table->decimal('subtotal', 10, 2);
+            $table->text('observacao')->nullable();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
-        Schema::dropIfExists('pedido_items');
+        Schema::dropIfExists('pedido_itens');
     }
 };

@@ -32,6 +32,15 @@ class ControllerCliente extends Controller
             ->with('success', 'Cliente removido com sucesso.');
     }
 
+    public function dadosClientes()
+    {
+        $totalClientes = User::count();
+
+        return view('areaAdmin.index', compact(
+            'totalClientes'
+        ));
+    }
+
     /*
     |--------------------------------------------------------------------------
     | CADASTRO (Web)

@@ -23,8 +23,7 @@ Além disso, segue o padrão arquitetural MVC (Model-View-Controller).
 ![Tela Inicial Administrador](documentacao/Tela-Inicial-Admin.png)
 
 ### Modelagem do Banco de Dados
-
-![MER](documentacao/banco_de_dados.png)
+![MER]<img src="./documentacao/banco_de_dados.png">
 
 ---
 

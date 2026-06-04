@@ -1,12 +1,10 @@
-```md
+# Random Burguer
+
 ![Laravel](https://img.shields.io/badge/Laravel-12-red)
 ![PHP](https://img.shields.io/badge/PHP-8.4-blue)
 ![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
 ![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Frontend-38BDF8)
-```
-
-# Random Burguer
 
 Sistema web completo para gerenciamento e venda de lanches, desenvolvido com Laravel, Tailwind CSS e Docker.
 

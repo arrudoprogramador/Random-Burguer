@@ -1,66 +1,273 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Random Burguer
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+![Laravel](https://img.shields.io/badge/Laravel-12-red)
+![PHP](https://img.shields.io/badge/PHP-8.4-blue)
+![MySQL](https://img.shields.io/badge/MySQL-Database-orange)
+![Docker](https://img.shields.io/badge/Docker-Containerized-blue)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-Frontend-38BDF8)
 
-## About Laravel
+Sistema web completo para gerenciamento e venda de lanches, desenvolvido com Laravel, Tailwind CSS e Docker.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+O projeto foi construído aplicando conceitos de Engenharia de Software, incluindo levantamento de requisitos, modelagem de banco de dados, documentação de casos de uso e desenvolvimento de API REST para autenticação e gerenciamento de usuários.
+Além disso, segue o padrão arquitetural MVC (Model-View-Controller).
+---
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Demonstração
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Área do Cliente
 
-## Learning Laravel
+![Tela Inicial Cliente](documentacao/Tela-Inicial-Usuario.png)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### Área Administrativa
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+![Tela Inicial Administrador](documentacao/Tela-Inicial-Admin.png)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Modelagem do Banco de Dados
+![MER]<img src="./documentacao/banco_de_dados.png">
 
-## Laravel Sponsors
+---
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+## Funcionalidades
 
-### Premium Partners
+### Cliente
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+* Cadastro de usuário
+* Login seguro
+* Visualização do cardápio
+* Carrinho de compras
+* Gerenciamento de itens do carrinho
+* Finalização de pedidos
+* Perfil do usuário
 
-## Contributing
+### Administrador
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+* Dashboard administrativo
+* Gestão de usuários
+* Cadastro de lanches
+* Edição de lanches
+* Exclusão de lanches
+* Cadastro de categorias
+* Controle de estoque
+* Gerenciamento de pedidos
 
-## Code of Conduct
+---
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 🛠 Tecnologias Utilizadas
 
-## Security Vulnerabilities
+### Backend
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+* PHP
+* Laravel
+* Laravel Sanctum
+* MySQL
 
-## License
+### Frontend
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+* HTML5
+* Tailwind CSS
+* JavaScript
+
+### Infraestrutura
+
+* Docker
+
+### Engenharia de Software
+
+* Levantamento de Requisitos
+* Casos de Uso
+* Modelo Entidade-Relacionamento (MER)
+* Documentação Técnica
+
+---
+
+## Estrutura do Projeto
+
+```bash
+app/
+database/
+docker/
+public/
+resources/
+routes/
+storage/
+documentacao/
+```
+
+---
+
+## API REST
+
+O projeto disponibiliza endpoints para autenticação e gerenciamento de usuários.
+
+### Autenticação
+
+```http
+POST /api/auth/login
+POST /api/auth/cadastro
+POST /api/logout
+```
+
+### Usuário Autenticado
+
+```http
+GET /api/me
+```
+
+### Clientes
+
+```http
+GET    /api/clientes
+GET    /api/clientes/{id}
+PATCH  /api/clientes/{id}
+DELETE /api/clientes/{id}
+```
+
+### Segurança
+
+* Laravel Sanctum
+* Rotas protegidas por autenticação
+* Rate Limiting
+* Controle de acesso baseado em permissões
+
+---
+
+## 🗄 Banco de Dados
+
+O sistema utiliza MySQL para persistência dos dados.
+
+Principais entidades:
+
+* Usuários
+* Clientes
+* Categorias
+* Lanches
+* Pedidos
+* Itens do Pedido
+* Estoque
+
+A modelagem foi documentada através de um Modelo Entidade-Relacionamento (MER).
+
+---
+
+## Engenharia de Software
+
+A documentação do projeto contempla:
+
+* Requisitos Funcionais
+* Requisitos Não Funcionais
+* Casos de Uso
+* Modelo Entidade-Relacionamento (MER)
+* Regras de Negócio
+* Dicionário de Dados
+
+Toda documentação pode ser encontrada na pasta:
+
+```bash
+documentacao/
+```
+
+---
+
+## ⚙️ Instalação
+
+### 1. Clonar o repositório
+
+```bash
+git clone https://github.com/arrudoprogramador/Random-Burguer.git
+cd Random-Burguer
+```
+
+### 2. Instalar dependências PHP
+
+```bash
+composer install
+```
+
+### 3. Instalar dependências JavaScript
+
+```bash
+npm install
+```
+
+### 4. Configurar ambiente
+
+```bash
+cp .env.example .env
+```
+
+Gerar a chave da aplicação:
+
+```bash
+php artisan key:generate
+```
+
+### 5. Configurar banco de dados
+
+Edite o arquivo `.env` com as credenciais do seu banco MySQL.
+
+### 6. Executar migrations
+
+```bash
+php artisan migrate
+```
+
+### 7. Iniciar o Vite
+
+```bash
+npm run dev
+```
+
+### 8. Iniciar o servidor Laravel
+
+```bash
+php artisan serve
+```
+
+A aplicação estará disponível em:
+
+```txt
+http://localhost:8000
+```
+
+
+---
+
+## 🐳 Docker
+
+O projeto possui suporte para execução em containers Docker.
+
+```bash
+docker compose up -d
+```
+
+---
+
+## Objetivos do Projeto
+
+Este projeto foi desenvolvido com o objetivo de:
+
+* Aplicar conceitos de Engenharia de Software.
+* Desenvolver uma aplicação full stack utilizando Laravel.
+* Implementar autenticação baseada em tokens.
+* Criar uma API REST segura.
+* Praticar modelagem de banco de dados.
+* Simular um ambiente real de gerenciamento de vendas.
+
+---
+
+## Melhorias Futuras
+
+* Relatórios de vendas
+* Dashboard analítico
+* Integração com pagamentos online
+* Sistema de cupons
+* Avaliação de produtos
+* Notificações em tempo real
+* Testes automatizados
+
+---
+
+
+## 📄 Licença
+
+Este projeto foi desenvolvido para fins de estudo, aprendizado e composição de portfólio profissional.

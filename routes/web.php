@@ -13,6 +13,16 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Diagnóstico de erro no Render
+Route::get('/debug-error', function () {
+    $logfile = storage_path('logs/laravel.log');
+    if (file_exists($logfile)) {
+        $lines = array_slice(file($logfile), -150);
+        return response(implode("", $lines), 200, ['Content-Type' => 'text/plain']);
+    }
+    return response('Nenhum log encontrado em ' . $logfile, 200, ['Content-Type' => 'text/plain']);
+});
+
 // Home
 Route::get('/', [ControllerLanches::class, 'show4'])->name('home');
 

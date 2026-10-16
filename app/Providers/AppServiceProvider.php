@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        if (
+            app()->environment('production') ||
+            env('APP_ENV') === 'production' ||
+            str_contains(request()->header('host', ''), 'onrender.com') ||
+            str_contains(request()->header('host', ''), 'render.com') ||
+            request()->header('x-forwarded-proto') === 'https'
+        ) {
+            URL::forceScheme('https');
+        }
     }
 }

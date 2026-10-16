@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
+    darkMode: 'class',
     content: [
         './resources/**/*.blade.php',
         './resources/**/*.js',
@@ -13,9 +14,15 @@ export default {
                     light:   '#FCD34D',
                 },
                 surface: {
-                    DEFAULT: '#111111',
-                    card:    '#1A1A1A',
-                    muted:   '#252525',
+                    DEFAULT: 'rgb(var(--color-surface) / <alpha-value>)',
+                    card:    'rgb(var(--color-surface-card) / <alpha-value>)',
+                    muted:   'rgb(var(--color-surface-muted) / <alpha-value>)',
+                    border:  'rgb(var(--color-surface-border) / <alpha-value>)',
+                },
+                content: {
+                    DEFAULT: 'rgb(var(--color-text-main) / <alpha-value>)',
+                    muted:   'rgb(var(--color-text-muted) / <alpha-value>)',
+                    subtle:  'rgb(var(--color-text-subtle) / <alpha-value>)',
                 },
             },
             fontFamily: {

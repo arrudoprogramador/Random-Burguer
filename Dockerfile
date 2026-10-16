@@ -64,22 +64,23 @@ RUN composer install \
     --no-interaction \
     --prefer-dist
 
-RUN php artisan about || true
+# Cria pastas essenciais de storage e ajusta permissões
+RUN mkdir -p /var/www/html/storage/framework/sessions \
+             /var/www/html/storage/framework/views \
+             /var/www/html/storage/framework/cache/data \
+             /var/www/html/storage/logs \
+             /var/www/html/bootstrap/cache \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 777 /var/www/html/storage \
+    && chmod -R 777 /var/www/html/bootstrap/cache
 
-# Permissões corretas
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html/storage \
-    && chmod -R 755 /var/www/html/bootstrap/cache
-
-# Copia configurações
+# Copia configurações e entrypoint
 COPY docker/nginx.conf /etc/nginx/nginx.conf
 COPY docker/php.ini $PHP_INI_DIR/conf.d/custom.ini
 COPY docker/supervisord.conf /etc/supervisord.conf
+COPY docker/entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
-RUN php-fpm -tt
+EXPOSE 8000 80
 
-EXPOSE 80
-
-RUN apk add --no-cache net-tools
-
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisord.conf"]
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

@@ -208,7 +208,7 @@
                                 <div class="flex items-center gap-3">
                                     <div class="w-11 h-11 rounded-xl overflow-hidden bg-surface-muted shrink-0 border border-surface-border dark:border-white/5">
                                         <img
-                                            src="{{ $lanche->imagem ? url('img/lanches/' . $lanche->imagem) : 'https://placehold.co/44x44/252525/F59E0B?text=🍔' }}"
+                                            src="{{ $lanche->imagem ? asset('img/lanches/' . $lanche->imagem) : asset('img/lanches/triplo-bacon.jpg') }}"
                                             alt="{{ $lanche->nome }}"
                                             class="w-full h-full object-cover"
                                         />
@@ -277,7 +277,7 @@
                 <div class="p-4 flex gap-3">
                     <div class="w-14 h-14 rounded-xl overflow-hidden bg-surface-muted shrink-0 border border-surface-border dark:border-white/5">
                         <img
-                            src="{{ $lanche->imagem ? url('img/lanches/' . $lanche->imagem) : 'https://placehold.co/56x56/252525/F59E0B?text=🍔' }}"
+                            src="{{ $lanche->imagem ? asset('img/lanches/' . $lanche->imagem) : asset('img/lanches/triplo-bacon.jpg') }}"
                             alt="{{ $lanche->nome }}"
                             class="w-full h-full object-cover"
                         />

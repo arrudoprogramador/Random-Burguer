@@ -1,24 +1,14 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+<html lang="pt-BR" class="dark scroll-smooth">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
     <title>@yield('title', 'RandomBurguer — Burguers Artesanais')</title>
 
-    {{-- Script anti-flash de tema (executado antes da renderização) --}}
+    {{-- Força modo escuro permanente na área do usuário --}}
     <script>
-        (function() {
-            try {
-                const savedTheme = localStorage.getItem('theme');
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
-                    document.documentElement.classList.add('dark');
-                } else {
-                    document.documentElement.classList.remove('dark');
-                }
-            } catch (e) {}
-        })();
+        document.documentElement.classList.add('dark');
     </script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])

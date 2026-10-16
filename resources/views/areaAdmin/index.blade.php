@@ -57,7 +57,7 @@
                     <div class="flex items-center gap-4 p-3 rounded-xl hover:bg-stone-200/50 dark:hover:bg-white/5 transition-all">
                         <div class="w-11 h-11 rounded-xl overflow-hidden bg-surface-muted shrink-0 border border-surface-border dark:border-white/5">
                             <img
-                                src="{{ $lanche->imagem ? url('img/lanches/' . $lanche->imagem) : 'https://placehold.co/44x44/252525/F59E0B?text=🍔' }}"
+                                src="{{ $lanche->imagem ? asset('img/lanches/' . $lanche->imagem) : asset('img/lanches/triplo-bacon.jpg') }}"
                                 alt="{{ $lanche->nome }}"
                                 class="w-full h-full object-cover"
                             />

@@ -23,36 +23,33 @@
             {{-- Nav Desktop --}}
             <nav class="hidden md:flex items-center gap-8">
                 <a href="{{ route('lanches.index') }}"
-                   class="text-sm font-medium text-stone-700 dark:text-white/70 hover:text-brand dark:hover:text-brand transition-colors tracking-wide">
+                   class="text-sm font-medium text-white/75 hover:text-brand transition-colors tracking-wide">
                     Cardápio
                 </a>
                 <a href="{{ route('home') }}#favoritos"
-                   class="text-sm font-medium text-stone-700 dark:text-white/70 hover:text-brand dark:hover:text-brand transition-colors tracking-wide">
+                   class="text-sm font-medium text-white/75 hover:text-brand transition-colors tracking-wide">
                     Favoritos
                 </a>
                 <a href="{{ route('home') }}#about"
-                   class="text-sm font-medium text-stone-700 dark:text-white/70 hover:text-brand dark:hover:text-brand transition-colors tracking-wide">
-                    Sobre
+                   class="text-sm font-medium text-white/75 hover:text-brand transition-colors tracking-wide">
+                    Sobre Nós
                 </a>
                 <a href="{{ route('home') }}#address"
-                   class="text-sm font-medium text-stone-700 dark:text-white/70 hover:text-brand dark:hover:text-brand transition-colors tracking-wide">
+                   class="text-sm font-medium text-white/75 hover:text-brand transition-colors tracking-wide">
                     Localização
                 </a>
             </nav>
 
             {{-- Ações Desktop --}}
-            <div class="hidden md:flex items-center gap-3">
-
-                {{-- Toggle de Tema Claro / Escuro --}}
-                @include('components.theme-toggle')
+            <div class="hidden md:flex items-center gap-4">
 
                 {{-- Carrinho --}}
                 <a href="{{ route('carrinho.index') }}"
                    aria-label="Meu Carrinho"
-                   class="relative text-stone-700 dark:text-white/70 hover:text-brand dark:hover:text-brand transition-colors p-2 rounded-full hover:bg-stone-200/50 dark:hover:bg-white/5">
+                   class="relative text-white/80 hover:text-brand transition-colors p-2.5 rounded-full hover:bg-white/5 border border-transparent hover:border-white/10">
                     <i class="bi bi-bag text-xl"></i>
                     @if(session('carrinho') && count(session('carrinho')) > 0)
-                        <span class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-brand text-black text-[10px] font-bold flex items-center justify-center shadow-sm">
+                        <span class="absolute top-0.5 right-0.5 w-4 h-4 rounded-full bg-brand text-black text-[10px] font-bold flex items-center justify-center shadow-md shadow-brand/40">
                             {{ count(session('carrinho')) }}
                         </span>
                     @endif
@@ -62,35 +59,33 @@
                     {{-- Logado --}}
                     @if(auth()->user()->nivel_acesso === 'admin' || auth()->user()->role === 'admin')
                         <a href="{{ route('admin.dashboard') }}"
-                           class="text-xs px-3 py-1.5 rounded-full bg-brand/10 border border-brand/30 text-brand font-semibold hover:bg-brand hover:text-black transition-all">
+                           class="text-xs px-3.5 py-1.5 rounded-full bg-brand/10 border border-brand/30 text-brand font-semibold hover:bg-brand hover:text-black transition-all">
                             Painel Admin
                         </a>
                     @endif
-                    <span class="text-sm text-stone-600 dark:text-white/60 font-medium">
+                    <span class="text-sm text-white/70 font-medium">
                         Olá, {{ auth()->user()->name }}
                     </span>
                     <form action="{{ route('auth.logout') }}" method="POST">
                         @csrf
                         <button type="submit"
-                                class="px-4 py-2 rounded-full border border-stone-300 dark:border-white/10 text-stone-600 dark:text-white/60 text-sm font-medium hover:text-brand dark:hover:text-brand hover:border-brand/40 transition-all">
+                                class="px-4 py-2 rounded-full border border-white/10 text-white/70 text-sm font-medium hover:text-brand hover:border-brand/40 transition-all">
                             Sair
                         </button>
                     </form>
                 @else
                     {{-- Não logado --}}
                     <a href="{{ route('auth.login') }}"
-                       class="px-5 py-2 rounded-full bg-brand text-black text-sm font-semibold hover:bg-brand-light transition-all shadow-md shadow-brand/20 hover:shadow-brand/40">
+                       class="px-6 py-2.5 rounded-full bg-brand text-black text-sm font-bold hover:bg-brand-light transition-all shadow-lg shadow-brand/25 hover:shadow-brand/40 hover:-translate-y-0.5">
                         Entrar
                     </a>
                 @endauth
 
             </div>
 
-            {{-- Botão Mobile + Toggle Mobile --}}
+            {{-- Botão Mobile --}}
             <div class="flex items-center gap-2 md:hidden">
-                @include('components.theme-toggle')
-
-                <a href="{{ route('carrinho.index') }}" class="relative text-stone-800 dark:text-white p-2">
+                <a href="{{ route('carrinho.index') }}" class="relative text-white p-2">
                     <i class="bi bi-bag text-xl"></i>
                     @if(session('carrinho') && count(session('carrinho')) > 0)
                         <span class="absolute top-0 right-0 w-4 h-4 rounded-full bg-brand text-black text-[10px] font-bold flex items-center justify-center">
@@ -101,7 +96,7 @@
 
                 <button @click="mobileOpen = !mobileOpen"
                         aria-label="Abrir menu"
-                        class="text-stone-800 dark:text-white p-2 rounded-lg hover:bg-stone-200/60 dark:hover:bg-white/10 transition-colors">
+                        class="text-white p-2 rounded-lg hover:bg-white/10 transition-colors">
                     <i :class="mobileOpen ? 'bi-x-lg' : 'bi-list'" class="bi text-2xl"></i>
                 </button>
             </div>

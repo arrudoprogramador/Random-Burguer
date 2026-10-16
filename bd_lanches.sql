@@ -193,8 +193,12 @@ VALUES (1, 'Administrador', 'admin@randomburguer.com', '11999999999', '$2y$10$92
 
 
 INSERT INTO lanches (id, categoria_id, nome, slug, descricao, imagem, preco, estoque, destaque, ativo, created_at, updated_at)
-VALUES(1, 1,'Triplo Bacon','triplo-bacon', 'Hambúrguer artesanal com triplo bacon e cheddar.', 'triplo-bacon.jpg', 34.90, 50, 1, 1, NOW(), NOW()),
-      (2, 1, 'X-Mata Fome','x-mata-fome', 'Hambúrguer duplo com onion rings e molho especial.', 'x-mata-fome.jpg', 39.90, 40, 1, 1, NOW(), NOW());
+VALUES(1, 1, 'Triplo Bacon', 'triplo-bacon', 'Blend artesanal 200g, triplo bacon caramelizado crocante, duplo cheddar inglês derretido, cebola caramelizada e maionese defumada no pão brioche dourado.', 'triplo-bacon.jpg', 36.90, 50, 1, 1, NOW(), NOW()),
+      (2, 1, 'X-Mata Fome', 'x-mata-fome', 'Dois suculentos hambúrgueres Angus 180g, cascata de cheddar derretido, anéis de cebola empanados ultra crocantes, barbecue rústico e farofa de bacon no pão brioche.', 'x-mata-fome.jpg', 42.90, 40, 1, 1, NOW(), NOW()),
+      (3, 1, 'Trufado Supreme', 'trufado-supreme', 'Hambúrguer Wagyu 200g, queijo Brie francês maçaricado, cogumelos shimeji salteados na manteiga trufada, rúcula baby e aioli de trufas negras no exclusivo pão black artesanal.', 'trufado-supreme.jpg', 48.90, 30, 1, 1, NOW(), NOW()),
+      (4, 1, 'Smash Classic Cheese', 'smash-classic-cheese', 'Dois smash burguers 90g com crostinha lacy ultra crocante, dobro de queijo americano cremoso, picles artesanais crocantes, cebola roxa picadinha e molho secreto da casa no pão de batata fofinho.', 'smash-classic.jpg', 29.90, 60, 1, 1, NOW(), NOW()),
+      (5, 1, 'Gorgonzola & Crispy', 'gorgonzola-crispy', 'Blend bovino 180g grelhado no fogo, creme aveludado de gorgonzola dolce, montanha de crispy de cebola fininha e geleia artesanal de bacon no pão pretzel tostado.', 'gorgonzola-crispy.jpg', 39.90, 35, 1, 1, NOW(), NOW()),
+      (6, 1, 'Crispy Chicken Fire', 'crispy-chicken-fire', 'Sobrecoxa desossada empanada com casquinha super crocante ao estilo Nashville, glaze de mel picante, salada coleslaw de repolho roxo, picles de jalapeño e maionese chipotle no brioche amanteigado.', 'chicken-crispy.jpg', 34.90, 45, 1, 1, NOW(), NOW());
 
 
 INSERT INTO enderecos (id, user_id, cep, rua, numero, bairro, cidade, estado, complemento, principal, created_at, updated_at)

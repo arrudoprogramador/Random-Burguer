@@ -59,10 +59,10 @@
                             {{-- Imagem --}}
                             <div class="w-24 h-24 rounded-xl overflow-hidden bg-surface-muted shrink-0 border border-surface-border dark:border-white/5">
                                 <img
-                                    src="{{ url('/img/lanches/' . $item['imagem']) }}"
+                                    src="{{ asset('img/lanches/' . $item['imagem']) }}"
                                     alt="{{ $item['nome'] }}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                                    onerror="this.src='https://placehold.co/96x96/252525/F59E0B?text=🍔'"
+                                    onerror="this.src='{{ asset('img/lanches/triplo-bacon.jpg') }}'"
                                 />
                             </div>
 

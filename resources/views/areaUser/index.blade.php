@@ -17,7 +17,7 @@
             alt="Hero background"
             class="w-full h-full object-cover object-center scale-105"
             style="animation: slowZoom 12s ease-out forwards;"
-            onerror="this.src='https://placehold.co/1920x1080/111111/F59E0B?text=RandomBurguer'"
+            onerror="this.src='{{ asset('img/lanches/triplo-bacon.jpg') }}'"
         />
         {{-- Overlay gradiente para garantir contraste absoluto dos textos sobre a imagem --}}
         <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/30"></div>
@@ -119,7 +119,7 @@
 
         {{-- Grid de cards --}}
         @if(isset($lanchesFavoritos) && $lanchesFavoritos->count())
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
                 @foreach($lanchesFavoritos as $lanche)
                     @include('components.lanche-card', ['lanche' => $lanche])
                 @endforeach

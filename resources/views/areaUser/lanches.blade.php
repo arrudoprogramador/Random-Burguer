@@ -14,7 +14,7 @@
             src="{{ asset('/img/bg (1).jpg') }}"
             alt="Cardápio background"
             class="w-full h-full object-cover object-center"
-            onerror="this.src='https://placehold.co/1600x400/111111/F59E0B?text=Cardápio+RandomBurguer'"
+            onerror="this.src='{{ asset('img/lanches/triplo-bacon.jpg') }}'"
         />
         <div class="absolute inset-0 bg-gradient-to-r from-black/90 via-black/70 to-black/30"></div>
         <div class="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent"></div>
@@ -99,46 +99,7 @@
             {{-- Grid --}}
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
                 @foreach($lanches as $l)
-                    <a href="{{ route('lanches.show', ['id' => $l->id]) }}"
-                       class="group relative bg-surface-card rounded-2xl overflow-hidden border border-surface-border dark:border-white/5 hover:border-brand/50 dark:hover:border-brand/30 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-xl hover:shadow-brand/10 flex flex-col theme-card">
-
-                        {{-- Imagem --}}
-                        <div class="relative h-52 overflow-hidden bg-surface-muted">
-                            <img
-                                src="{{ url('/img/lanches/' . $l->imagem) }}"
-                                alt="{{ $l->nome }}"
-                                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                                onerror="this.src='https://placehold.co/400x300/252525/F59E0B?text=RandomBurguer'"
-                            />
-                            <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
-                        </div>
-
-                        {{-- Info --}}
-                        <div class="p-5 flex flex-col flex-1">
-                            <h3 class="font-display text-lg text-stone-900 dark:text-white font-bold leading-tight mb-1 group-hover:text-brand transition-colors">
-                                {{ $l->nome }}
-                            </h3>
-
-                            @if(isset($l->descricao) && $l->descricao)
-                                <p class="text-sm text-stone-600 dark:text-white/50 line-clamp-2 mb-4 leading-relaxed flex-1">
-                                    {{ $l->descricao }}
-                                </p>
-                            @else
-                                <div class="flex-1"></div>
-                            @endif
-
-                            <div class="flex items-center justify-between mt-4 pt-4 border-t border-surface-border dark:border-white/5">
-                                <span class="text-brand font-bold text-xl">
-                                    R$ {{ number_format($l->preco, 2, ',', '.') }}
-                                </span>
-                                <span class="flex items-center gap-1.5 px-4 py-2 rounded-full bg-brand/10 text-brand border border-brand/20 text-sm font-semibold group-hover:bg-brand group-hover:text-black transition-all duration-200">
-                                    <i class="bi bi-plus-lg text-base"></i>
-                                    Pedir
-                                </span>
-                            </div>
-                        </div>
-
-                    </a>
+                    @include('components.lanche-card', ['lanche' => $l])
                 @endforeach
             </div>
 

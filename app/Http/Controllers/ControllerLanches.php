@@ -33,7 +33,7 @@ class ControllerLanches extends Controller
 
     public function show4()
     {
-        $lanchesFavoritos = Lanche::inRandomOrder()->take(4)->get();
+        $lanchesFavoritos = Lanche::inRandomOrder()->take(6)->get();
 
         return view('areaUser.index', compact('lanchesFavoritos'));
     }

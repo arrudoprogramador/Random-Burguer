@@ -10,10 +10,10 @@
     {{-- Lado esquerdo — imagem --}}
     <div class="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         <img
-            src="{{ url('img/bg (2).jpg') }}"
+            src="{{ asset('img/lanches/trufado-supreme.jpg') }}"
             alt="RandomBurguer"
             class="w-full h-full object-cover"
-            onerror="this.src='https://placehold.co/800x1000/111111/F59E0B?text=RandomBurguer'"
+            onerror="this.src='{{ asset('img/lanches/triplo-bacon.jpg') }}'"
         />
         <div class="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/90"></div>
         <div class="absolute inset-0 flex flex-col justify-end p-12 z-10">

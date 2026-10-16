@@ -25,17 +25,17 @@
             ===================== --}}
             <div class="relative group">
                 {{-- Glow decorativo --}}
-                <div class="absolute -inset-4 bg-brand/10 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="absolute -inset-4 bg-brand/15 rounded-3xl blur-3xl opacity-60 group-hover:opacity-100 transition-opacity duration-700"></div>
 
-                <div class="relative aspect-square rounded-3xl overflow-hidden bg-surface-card border border-surface-border dark:border-white/5 shadow-md">
+                <div class="relative aspect-square rounded-3xl overflow-hidden bg-[#131316] border border-white/10 shadow-2xl">
                     <img
-                        src="{{ $lanche->imagem ? url('/img/lanches/' . $lanche->imagem) : url('/img/sub2.jpg') }}"
+                        src="{{ $lanche->imagem ? asset('img/lanches/' . $lanche->imagem) : asset('img/lanches/triplo-bacon.jpg') }}"
                         alt="{{ $lanche->nome }}"
                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        onerror="this.src='https://placehold.co/600x600/252525/F59E0B?text=RandomBurguer'"
+                        onerror="this.src='{{ asset('img/lanches/triplo-bacon.jpg') }}'"
                     />
                     {{-- Overlay sutil --}}
-                    <div class="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent"></div>
+                    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
                 </div>
             </div>
 

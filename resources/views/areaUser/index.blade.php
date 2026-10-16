@@ -28,11 +28,6 @@
     <div class="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 w-full">
         <div class="max-w-xl">
 
-            {{-- Tag --}}
-            <div class="opacity-0-init animate-fade-up inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand/40 bg-brand/20 backdrop-blur-md mb-6 shadow-sm">
-                <span class="w-2 h-2 rounded-full bg-brand animate-pulse"></span>
-                <span class="text-xs font-semibold text-brand tracking-widest uppercase">Aberto agora</span>
-            </div>
 
             {{-- Título --}}
             <h1 class="opacity-0-init animate-fade-up-2 font-display text-5xl lg:text-7xl text-white leading-none mb-6 drop-shadow-md">
@@ -40,12 +35,6 @@
                 <span class="text-brand italic">seu pedido</span><br>
                 hoje?
             </h1>
-
-            {{-- Subtítulo --}}
-            <p class="opacity-0-init animate-fade-up-3 text-white/80 text-lg mb-10 leading-relaxed max-w-lg">
-                Burguers artesanais com ingredientes selecionados a dedo.<br class="hidden sm:block">
-                Entrega rápida ou retire quentinho no balcão.
-            </p>
 
             {{-- CTAs --}}
             <div class="opacity-0-init animate-fade-up-3 flex flex-col sm:flex-row gap-4">
@@ -78,11 +67,9 @@
     ===================================================== --}}
 <section class="bg-brand py-6 shadow-sm">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-black">
+        <div class="grid grid-cols-2 max-w-2xl mx-auto gap-8 text-center text-black">
             @foreach([
-                ['icon' => 'bi-fire',       'value' => '+50',     'label' => 'Burguers no menu'],
                 ['icon' => 'bi-star-fill',  'value' => '4.9★',    'label' => 'Avaliação média'],
-                ['icon' => 'bi-clock',      'value' => '~25min',  'label' => 'Tempo de entrega'],
                 ['icon' => 'bi-heart-fill', 'value' => '+2k',     'label' => 'Clientes felizes'],
             ] as $stat)
                 <div class="flex flex-col items-center gap-1 py-2">

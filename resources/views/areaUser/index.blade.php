@@ -36,6 +36,12 @@
                 hoje?
             </h1>
 
+            {{-- Subtítulo --}}
+            <p class="opacity-0-init animate-fade-up-3 text-white/80 text-lg mb-10 leading-relaxed max-w-lg">
+                Burguers artesanais com ingredientes selecionados a dedo.<br class="hidden sm:block">
+                Entrega rápida ou retire quentinho no balcão.
+            </p>
+
             {{-- CTAs --}}
             <div class="opacity-0-init animate-fade-up-3 flex flex-col sm:flex-row gap-4">
                 <a href="{{ route('lanches.index') }}"
@@ -67,7 +73,7 @@
     ===================================================== --}}
 <section class="bg-brand py-6 shadow-sm">
     <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="grid grid-cols-2 max-w-2xl mx-auto gap-8 text-center text-black">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center text-black">
             @foreach([
                 ['icon' => 'bi-star-fill',  'value' => '4.9★',    'label' => 'Avaliação média'],
                 ['icon' => 'bi-heart-fill', 'value' => '+2k',     'label' => 'Clientes felizes'],
